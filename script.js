@@ -21,8 +21,8 @@ const indexStats = document.getElementById("indexStats");
 const achievementSearch = document.getElementById("achievementSearch");
 
 const xpMultiplierValue = document.getElementById("xpMultiplierValue");
-const luckValue = document.getElementById("luckValue");
-const speedValue = document.getElementById("speedValue");
+const luckValueElement = document.getElementById("luckValue");
+const speedValueElement = document.getElementById("speedValue");
 
 const statXP = document.getElementById("statXP");
 const statLuck = document.getElementById("statLuck");
@@ -35,6 +35,11 @@ const speedUpgradeCost = document.getElementById("speedUpgradeCost");
 const xpUpgradeButton = document.getElementById("xpUpgradeButton");
 const luckUpgradeButton = document.getElementById("luckUpgradeButton");
 const speedUpgradeButton = document.getElementById("speedUpgradeButton");
+
+
+/* =========================
+   LOAD SAVE
+========================= */
 
 let xp = Number(localStorage.getItem("xp") || "0");
 let level = Number(localStorage.getItem("level") || "1");
@@ -51,9 +56,20 @@ let animationSpeed = Number(
     localStorage.getItem("animationSpeed") || "1"
 );
 
-let unlockedAchievements = JSON.parse(
-    localStorage.getItem("unlockedAchievements") || "[]"
-);
+let unlockedAchievements;
+
+try {
+    unlockedAchievements = JSON.parse(
+        localStorage.getItem("unlockedAchievements") || "[]"
+    );
+} catch {
+    unlockedAchievements = [];
+}
+
+
+/* =========================
+   VALIDATE SAVE
+========================= */
 
 if (!Number.isFinite(xp) || xp < 0) {
     xp = 0;
@@ -78,6 +94,11 @@ if (!Number.isFinite(animationSpeed) || animationSpeed < 1) {
 if (!Array.isArray(unlockedAchievements)) {
     unlockedAchievements = [];
 }
+
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
 
 const achievements = [
     {
@@ -156,7 +177,7 @@ const achievements = [
         id: "ultraHighBall",
         name: "Ultra High Ball",
         xp: 190,
-        description: "The sum of all digits has to be above 15."
+        description: "The sum of all digits has to be above 20."
     },
     {
         id: "highFiveSum",
@@ -267,6 +288,12 @@ const achievements = [
         description: "Roll a number containing 69."
     },
     {
+        id: "firstLast",
+        name: "First & Last",
+        xp: 411,
+        description: "The first and last digit have to be the same."
+    },
+    {
         id: "adult",
         name: "Adult",
         xp: 418,
@@ -345,16 +372,40 @@ const achievements = [
         description: "Roll exactly 77."
     },
     {
+        id: "wrapik",
+        name: "Wrapik",
+        xp: 803,
+        description: "Roll exactly 339."
+    },
+    {
+        id: "blackHole",
+        name: "Black Hole",
+        xp: 850,
+        description: "The middle digit has to be 0."
+    },
+    {
+        id: "error404",
+        name: "Error 404",
+        xp: 947,
+        description: "Roll exactly 404."
+    },
+    {
         id: "maximum",
         name: "Maximum",
         xp: 981,
         description: "Roll exactly 999."
     },
     {
-        id: "century",
-        name: "Century",
+        id: "firstCentury",
+        name: "First Century",
         xp: 1000,
         description: "Roll exactly 100."
+    },
+    {
+        id: "century",
+        name: "Century",
+        xp: 1050,
+        description: "Roll a number like 300, 600 or 700."
     },
     {
         id: "pi",
@@ -370,21 +421,79 @@ const achievements = [
     }
 ];
 
+
+/* =========================
+   SAVE
+========================= */
+
 function saveProgress() {
     localStorage.setItem("xp", String(xp));
     localStorage.setItem("level", String(level));
-    localStorage.setItem("xpMultiplier", String(xpMultiplier));
-    localStorage.setItem("luck", String(luck));
-    localStorage.setItem("animationSpeed", String(animationSpeed));
+    localStorage.setItem(
+        "xpMultiplier",
+        String(xpMultiplier)
+    );
+    localStorage.setItem(
+        "luck",
+        String(luck)
+    );
+    localStorage.setItem(
+        "animationSpeed",
+        String(animationSpeed)
+    );
     localStorage.setItem(
         "unlockedAchievements",
         JSON.stringify(unlockedAchievements)
     );
 }
 
+
+/* =========================
+   LEVEL / XP
+========================= */
+
 function getXPNeeded() {
     return 100 + (level - 1) * 50;
 }
+
+function updateXP() {
+    const requiredXP = getXPNeeded();
+
+    levelElement.textContent = level;
+
+    xpElement.textContent =
+        `${xp} / ${requiredXP}`;
+
+    xpFill.style.width =
+        `${Math.min(
+            (xp / requiredXP) * 100,
+            100
+        )}%`;
+
+    updateUpgradeButtons();
+}
+
+function addXP(amount) {
+    const multipliedAmount =
+        Math.floor(
+            amount * xpMultiplier
+        );
+
+    xp += multipliedAmount;
+
+    while (xp >= getXPNeeded()) {
+        xp -= getXPNeeded();
+        level++;
+    }
+
+    saveProgress();
+    updateXP();
+}
+
+
+/* =========================
+   RARITY
+========================= */
 
 function getRarity(xpValue) {
     if (xpValue <= 99) {
@@ -394,7 +503,14 @@ function getRarity(xpValue) {
         };
     }
 
-    if (xpValue <= 249) {
+    if (xpValue <= 199) {
+        return {
+            name: "Uncommon",
+            color: "#55d66b"
+        };
+    }
+
+    if (xpValue <= 299) {
         return {
             name: "Rare",
             color: "#4da6ff"
@@ -428,180 +544,212 @@ function getRarity(xpValue) {
     };
 }
 
+
+/* =========================
+   UPGRADES
+========================= */
+
+/*
+   Każdy upgrade ma osobną cenę.
+
+   XP:
+   pierwszy = 2 LVL
+   drugi = 3 LVL
+   trzeci = 4 LVL
+   itd.
+
+   Luck:
+   pierwszy = 3 LVL
+   drugi = 4 LVL
+   trzeci = 5 LVL
+   itd.
+
+   Speed:
+   pierwszy = 2 LVL
+   drugi = 3 LVL
+   trzeci = 4 LVL
+   itd.
+*/
+
+function getUpgradeCount(type) {
+    if (type === "xp") {
+        return Math.round(
+            (xpMultiplier - 1) * 10
+        );
+    }
+
+    if (type === "luck") {
+        return Math.round(
+            (luck - 1) * 10
+        );
+    }
+
+    if (type === "speed") {
+        return Math.round(
+            (animationSpeed - 1) * 10
+        );
+    }
+
+    return 0;
+}
+
 function getUpgradeCost(type) {
-    const levelMap = {
+    const upgradeCount =
+        getUpgradeCount(type);
+
+    const baseCost = {
         xp: 2,
         luck: 3,
         speed: 2
     };
 
-    const valueMap = {
-        xp: xpMultiplier,
-        luck: luck,
-        speed: animationSpeed
-    };
-
-    const base = levelMap[type];
-    const upgrades = Math.round((valueMap[type] - 1) * 10);
-
-    return base * (upgrades + 1);
-}
-
-function canUpgrade(cost) {
-    return level >= cost;
+    return (
+        baseCost[type] +
+        upgradeCount
+    );
 }
 
 function updateUpgradeButtons() {
     const upgrades = [
         {
             button: xpUpgradeButton,
-            cost: getUpgradeCost("xp"),
-            element: xpUpgradeCost
+            costElement: xpUpgradeCost,
+            type: "xp"
         },
         {
             button: luckUpgradeButton,
-            cost: getUpgradeCost("luck"),
-            element: luckUpgradeCost
+            costElement: luckUpgradeCost,
+            type: "luck"
         },
         {
             button: speedUpgradeButton,
-            cost: getUpgradeCost("speed"),
-            element: speedUpgradeCost
+            costElement: speedUpgradeCost,
+            type: "speed"
         }
     ];
 
     upgrades.forEach(upgrade => {
-        upgrade.element.textContent =
-            `${upgrade.cost} LVL`;
+        const cost =
+            getUpgradeCost(
+                upgrade.type
+            );
 
-        if (canUpgrade(upgrade.cost)) {
-            upgrade.button.disabled = false;
-            upgrade.button.classList.remove("cant-buy");
-        } else {
-            upgrade.button.disabled = true;
-            upgrade.button.classList.add("cant-buy");
-        }
+        upgrade.costElement.textContent =
+            `${cost} LVL`;
+
+        const canBuy =
+            level >= cost;
+
+        upgrade.button.disabled =
+            !canBuy;
+
+        upgrade.button.classList.toggle(
+            "cant-buy",
+            !canBuy
+        );
     });
 }
 
 function updateUpgradeUI() {
-    const xpValue = xpMultiplier.toFixed(1) + "x";
-    const luckValueText = luck.toFixed(1) + "x";
-    const speedValue = animationSpeed.toFixed(1) + "x";
+    const xpText =
+        xpMultiplier.toFixed(1) + "x";
 
-    xpMultiplierValue.textContent = xpValue;
-    luckValue.textContent = luckValueText;
-    speedValueElement = speedValue;
+    const luckText =
+        luck.toFixed(1) + "x";
 
-    document.getElementById("speedValue").textContent = speedValue;
+    const speedText =
+        animationSpeed.toFixed(1) + "x";
 
-    statXP.textContent = xpValue;
-    statLuck.textContent = luckValueText;
-    statSpeed.textContent = speedValue;
+    xpMultiplierValue.textContent =
+        xpText;
+
+    luckValueElement.textContent =
+        luckText;
+
+    speedValueElement.textContent =
+        speedText;
+
+    statXP.textContent =
+        xpText;
+
+    statLuck.textContent =
+        luckText;
+
+    statSpeed.textContent =
+        speedText;
 
     updateUpgradeButtons();
 }
 
 function buyUpgrade(type) {
-    const cost = getUpgradeCost(type);
+    const cost =
+        getUpgradeCost(type);
+
+    /*
+       Teraz upgrade NIE jest
+       odblokowywany przez level.
+
+       Level jest walutą.
+       Jeżeli masz np. 5 leveli
+       i upgrade kosztuje 3,
+       zostają Ci 2 levele.
+    */
 
     if (level < cost) {
         return;
     }
 
+    /* Zabieramy levele */
+    level -= cost;
+
     if (type === "xp") {
-        xpMultiplier += 0.1;
-        xpMultiplier = Number(xpMultiplier.toFixed(1));
+        xpMultiplier =
+            Number(
+                (
+                    xpMultiplier + 0.1
+                ).toFixed(1)
+            );
     }
 
     if (type === "luck") {
-        luck += 0.1;
-        luck = Number(luck.toFixed(1));
+        luck =
+            Number(
+                (
+                    luck + 0.1
+                ).toFixed(1)
+            );
     }
 
     if (type === "speed") {
-        animationSpeed += 0.1;
-        animationSpeed = Number(animationSpeed.toFixed(1));
+        animationSpeed =
+            Number(
+                (
+                    animationSpeed + 0.1
+                ).toFixed(1)
+            );
     }
 
     saveProgress();
+
+    /*
+       Natychmiastowe odświeżenie
+       całego interfejsu.
+    */
+
+    updateXP();
     updateUpgradeUI();
 }
 
-function updateXP() {
-    const requiredXP = getXPNeeded();
 
-    levelElement.textContent = level;
-    xpElement.textContent = `${xp} / ${requiredXP}`;
-
-    xpFill.style.width =
-        `${Math.min((xp / requiredXP) * 100, 100)}%`;
-
-    updateUpgradeButtons();
-}
-
-function addXP(amount) {
-    const multipliedAmount =
-        Math.floor(amount * xpMultiplier);
-
-    xp += multipliedAmount;
-
-    while (xp >= getXPNeeded()) {
-        xp -= getXPNeeded();
-        level++;
-    }
-
-    saveProgress();
-    updateXP();
-}
-
-function rollNumber() {
-    const normalWeight = 100;
-    const rareWeight = Math.max(1, 12 / luck);
-    const ultraWeight = Math.max(0.2, 1.5 / luck);
-
-    const pool = [];
-
-    for (let number = 1; number <= 999; number++) {
-        const achievementsForNumber =
-            getAchievements(number);
-
-        const rarity =
-            getNumberRarity(
-                number,
-                achievementsForNumber
-            );
-
-        let weight = normalWeight;
-
-        if (rarity === "Rare") {
-            weight = rareWeight;
-        }
-
-        if (rarity === "Ultra Rare") {
-            weight = ultraWeight;
-        }
-
-        const copies =
-            Math.max(
-                1,
-                Math.round(weight * 10)
-            );
-
-        for (let i = 0; i < copies; i++) {
-            pool.push(number);
-        }
-    }
-
-    return pool[
-        Math.floor(Math.random() * pool.length)
-    ];
-}
+/* =========================
+   ACHIEVEMENT DETECTION
+========================= */
 
 function getAchievements(number) {
     const found = [];
 
-    const numberString = String(number);
+    const numberString =
+        String(number);
 
     const digitValues =
         [...numberString].map(Number);
@@ -613,7 +761,9 @@ function getAchievements(number) {
     };
 
     const contains = value =>
-        numberString.includes(String(value));
+        numberString.includes(
+            String(value)
+        );
 
     const allDigitsBelowFive =
         digitValues.length > 1 &&
@@ -629,23 +779,46 @@ function getAchievements(number) {
 
     const digitSum =
         digitValues.reduce(
-            (sum, digit) => sum + digit,
+            (sum, digit) =>
+                sum + digit,
             0
         );
 
-    if (number >= 1 && number <= 6) {
+
+    /* =====================
+       SINGLE / DOUBLE
+    ===================== */
+
+    if (
+        number >= 1 &&
+        number <= 6
+    ) {
         add("baby");
     }
 
-    if (number >= 1 && number <= 9) {
+    if (
+        number >= 1 &&
+        number <= 9
+    ) {
         add("singleDigit");
     }
 
-    if (number >= 10 && number <= 99) {
+    if (
+        number >= 10 &&
+        number <= 99
+    ) {
         add("doubleDigits");
     }
 
-    if (number >= 10 && number % 10 === 0) {
+
+    /* =====================
+       BASIC
+    ===================== */
+
+    if (
+        number >= 10 &&
+        number % 10 === 0
+    ) {
         add("zeroEnd");
     }
 
@@ -657,6 +830,11 @@ function getAchievements(number) {
         add("doubleZero");
     }
 
+
+    /* =====================
+       DIGIT CONDITIONS
+    ===================== */
+
     if (allDigitsBelowFive) {
         add("lowBall");
     }
@@ -665,56 +843,93 @@ function getAchievements(number) {
         add("highBall");
     }
 
-    if (digitSum < 5 && number >= 10) {
+    if (
+        digitSum < 5 &&
+        number >= 10
+    ) {
         add("ultraLowBall");
     }
 
-    if (digitSum > 15) {
+    /*
+       Ultra High Ball:
+       suma MUSI być > 20.
+    */
+
+    if (digitSum > 20) {
         add("ultraHighBall");
     }
+
+
+    /* =====================
+       ADJACENT DIGITS
+    ===================== */
 
     for (
         let i = 0;
         i < digitValues.length - 1;
         i++
     ) {
-        const first = digitValues[i];
-        const second = digitValues[i + 1];
+        const first =
+            digitValues[i];
 
-        const sum = first + second;
+        const second =
+            digitValues[i + 1];
+
+        const sum =
+            first + second;
+
         const difference =
-            Math.abs(first - second);
+            Math.abs(
+                first - second
+            );
 
-        if (first === second) {
+
+        if (
+            first === second
+        ) {
             add("doubleTrouble");
         }
 
-        if (difference === 1) {
+        if (
+            difference === 1
+        ) {
             add("consecutive");
             add("stepByStep");
         }
 
-        if (difference === 5) {
+        if (
+            difference === 5
+        ) {
             add("highFive");
         }
 
-        if (difference === 9) {
+        if (
+            difference === 9
+        ) {
             add("maximumGap");
         }
 
-        if (sum === 5) {
+        if (
+            sum === 5
+        ) {
             add("highFiveSum");
         }
 
-        if (sum === 9) {
+        if (
+            sum === 9
+        ) {
             add("luckySum");
         }
 
-        if (sum === 10) {
+        if (
+            sum === 10
+        ) {
             add("perfectSum");
         }
 
-        if (sum === 15) {
+        if (
+            sum === 15
+        ) {
             add("perfectFifteen");
         }
 
@@ -732,9 +947,12 @@ function getAchievements(number) {
         }
     }
 
+
+    /* =====================
+       RANGES
+    ===================== */
+
     if (
-        number >= 10 &&
-        number <= 99 &&
         number >= 49 &&
         number <= 61
     ) {
@@ -754,6 +972,11 @@ function getAchievements(number) {
     ) {
         add("teenager");
     }
+
+
+    /* =====================
+       EXACT NUMBERS
+    ===================== */
 
     if (number === 25) {
         add("quarter");
@@ -791,9 +1014,26 @@ function getAchievements(number) {
         add("doubleEight");
     }
 
+    if (number === 999) {
+        add("maximum");
+    }
+
+    if (number === 314) {
+        add("pi");
+    }
+
+    if (number === 100) {
+        add("firstCentury");
+    }
+
     if (number === 777) {
         add("casino");
     }
+
+
+    /* =====================
+       SPECIAL PATTERNS
+    ===================== */
 
     if (
         contains("14") ||
@@ -849,29 +1089,87 @@ function getAchievements(number) {
         add("mirrorEight");
     }
 
-    if (number >= 100 && number <= 999) {
-        if (
-            digitValues[0] === digitValues[1] &&
-            digitValues[1] === digitValues[2]
-        ) {
-            add("tripleTrouble");
-        }
+
+    /* =====================
+       FIRST = LAST
+    ===================== */
+
+    if (
+        digitValues.length === 3 &&
+        digitValues[0] === digitValues[2]
+    ) {
+        add("firstLast");
     }
 
-    if (number === 999) {
-        add("maximum");
+
+    /* =====================
+       WRAPIK
+    ===================== */
+
+    if (number === 339) {
+        add("wrapik");
     }
 
-    if (number === 314) {
-        add("pi");
+
+    /* =====================
+       BLACK HOLE
+    ===================== */
+
+    if (
+        digitValues.length === 3 &&
+        digitValues[1] === 0
+    ) {
+        add("blackHole");
     }
 
-    if (number === 100) {
+
+    /* =====================
+       ERROR 404
+    ===================== */
+
+    if (number === 404) {
+        add("error404");
+    }
+
+
+    /* =====================
+       TRIPLE MATCHING
+    ===================== */
+
+    if (
+        number >= 100 &&
+        number <= 999 &&
+        digitValues.length === 3 &&
+        digitValues[0] === digitValues[1] &&
+        digitValues[1] === digitValues[2]
+    ) {
+        add("tripleTrouble");
+    }
+
+
+    /* =====================
+       CENTURY
+    ===================== */
+
+    if (
+        number >= 100 &&
+        number <= 999 &&
+        number % 100 === 0 &&
+        number !== 100
+    ) {
         add("century");
     }
 
-    return [...new Set(found)];
+
+    return [
+        ...new Set(found)
+    ];
 }
+
+
+/* =========================
+   NUMBER RARITY
+========================= */
 
 function getNumberRarity(
     number,
@@ -887,13 +1185,43 @@ function getNumberRarity(
             )
             .filter(Boolean);
 
-    const hasLegendary =
+
+    /*
+       ULTRA RARE
+
+       Wystarczy JEDEN:
+       Legendary
+       Mythic
+       Exclusive
+    */
+
+    const hasHighRarity =
         foundAchievements.some(
-            achievement =>
-                getRarity(
-                    achievement.xp
-                ).name === "Legendary"
+            achievement => {
+                const rarity =
+                    getRarity(
+                        achievement.xp
+                    ).name;
+
+                return (
+                    rarity === "Legendary" ||
+                    rarity === "Mythic" ||
+                    rarity === "Exclusive"
+                );
+            }
         );
+
+    if (hasHighRarity) {
+        return "Ultra Rare";
+    }
+
+
+    /*
+       RARE
+
+       Epic lub minimum
+       dwa achievementy.
+    */
 
     const hasEpic =
         foundAchievements.some(
@@ -904,50 +1232,166 @@ function getNumberRarity(
         );
 
     if (
-        foundAchievements.length > 3 &&
-        hasLegendary
-    ) {
-        return "Ultra Rare";
-    }
-
-    if (
-        foundAchievements.length >= 2 &&
-        hasEpic
+        hasEpic ||
+        foundAchievements.length >= 2
     ) {
         return "Rare";
     }
+
 
     return "Normal";
 }
 
 function getRarityColor(rarity) {
-    if (rarity === "Ultra Rare") {
+    if (
+        rarity === "Ultra Rare"
+    ) {
         return "rarity-ultra";
     }
 
-    if (rarity === "Rare") {
+    if (
+        rarity === "Rare"
+    ) {
         return "rarity-rare";
     }
 
     return "rarity-normal";
 }
 
-function showRollRarity(
-    rarity
-) {
+
+/* =========================
+   ROLL RARITY
+========================= */
+
+function showRollRarity(rarity) {
     rollRarity.textContent =
         rarity.toUpperCase();
 
     rollRarity.className =
         getRarityColor(rarity);
 
-    rollRarity.classList.add("visible");
+    rollRarity.classList.add(
+        "visible"
+    );
 }
+
+
+/* =========================
+   ROLL SYSTEM
+========================= */
+
+function rollNumber() {
+    /*
+       Luck wpływa na wagę
+       Rare i Ultra Rare.
+
+       Większy Luck =
+       większa szansa na rzadkie
+       liczby.
+    */
+
+    let totalWeight = 0;
+
+    const pool = [];
+
+
+    for (
+        let number = 1;
+        number <= 999;
+        number++
+    ) {
+        const achievementIds =
+            getAchievements(
+                number
+            );
+
+        const rarity =
+            getNumberRarity(
+                number,
+                achievementIds
+            );
+
+
+        /*
+           Zwykła liczba.
+        */
+
+        let weight = 100;
+
+
+        /*
+           Rare.
+        */
+
+        if (
+            rarity === "Rare"
+        ) {
+            weight =
+                10 +
+                (luck * 8);
+        }
+
+
+        /*
+           Ultra Rare.
+
+           Luck zwiększa szansę,
+           ale ultra rare nadal
+           jest znacznie rzadsze.
+        */
+
+        if (
+            rarity === "Ultra Rare"
+        ) {
+            weight =
+                1 +
+                (luck * 2.5);
+        }
+
+
+        weight =
+            Math.max(
+                0.5,
+                weight
+            );
+
+
+        pool.push({
+            number,
+            weight
+        });
+
+        totalWeight += weight;
+    }
+
+
+    let random =
+        Math.random() *
+        totalWeight;
+
+
+    for (const item of pool) {
+        random -= item.weight;
+
+        if (random <= 0) {
+            return item.number;
+        }
+    }
+
+
+    return 1;
+}
+
+
+/* =========================
+   UNLOCK ACHIEVEMENTS
+========================= */
 
 function unlockAchievements(
     foundAchievements
 ) {
     let changed = false;
+
 
     foundAchievements.forEach(
         achievement => {
@@ -965,32 +1409,48 @@ function unlockAchievements(
         }
     );
 
+
     if (changed) {
         saveProgress();
     }
 
+
     renderIndex();
 }
+
+
+/* =========================
+   INDEX STATS
+========================= */
 
 function updateIndexStats() {
     indexStats.textContent =
         `${unlockedAchievements.length} / ${achievements.length} Achievements Unlocked`;
 }
 
+
+/* =========================
+   INDEX
+========================= */
+
 function renderIndex() {
     indexList.innerHTML = "";
 
     updateIndexStats();
+
 
     const search =
         achievementSearch.value
             .trim()
             .toLowerCase();
 
+
     const sortedAchievements =
         [...achievements].sort(
-            (a, b) => a.xp - b.xp
+            (a, b) =>
+                a.xp - b.xp
         );
+
 
     const filteredAchievements =
         sortedAchievements.filter(
@@ -1017,6 +1477,7 @@ function renderIndex() {
             }
         );
 
+
     if (
         filteredAchievements.length === 0
     ) {
@@ -1029,6 +1490,7 @@ function renderIndex() {
         return;
     }
 
+
     filteredAchievements.forEach(
         (achievement, index) => {
             const unlocked =
@@ -1036,31 +1498,43 @@ function renderIndex() {
                     achievement.id
                 );
 
+
             const rarity =
                 getRarity(
                     achievement.xp
                 );
 
+
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             item.className =
                 "index-achievement";
 
+
             if (!unlocked) {
-                item.classList.add("locked");
+                item.classList.add(
+                    "locked"
+                );
             }
 
+
             if (
-                rarity.name === "Exclusive"
+                rarity.name ===
+                "Exclusive"
             ) {
                 item.classList.add(
                     "exclusive-border"
                 );
             }
 
+
             const rarityHTML =
-                rarity.name === "Exclusive"
+                rarity.name ===
+                "Exclusive"
                     ? `
                         <div class="index-rarity exclusive">
                             Exclusive
@@ -1075,8 +1549,10 @@ function renderIndex() {
                         </div>
                     `;
 
+
             const nameHTML =
-                rarity.name === "Exclusive"
+                rarity.name ===
+                "Exclusive"
                     ? `
                         <div class="index-name exclusive">
                             ${achievement.name}
@@ -1087,6 +1563,7 @@ function renderIndex() {
                             ${achievement.name}
                         </div>
                     `;
+
 
             item.innerHTML = `
                 <div class="index-number">
@@ -1120,25 +1597,53 @@ function renderIndex() {
                 }
             `;
 
-            indexList.appendChild(item);
+
+            indexList.appendChild(
+                item
+            );
         }
     );
 }
+
+
+/* =========================
+   ACHIEVEMENT NOTIFICATIONS
+========================= */
 
 function showAchievements(
     foundAchievements
 ) {
     achievementElement.innerHTML = "";
 
+
     const sortedAchievements =
         [...foundAchievements].sort(
-            (a, b) => a.xp - b.xp
+            (a, b) =>
+                a.xp - b.xp
         );
+
 
     let totalDelay = 0;
 
+
     sortedAchievements.forEach(
         (achievement, index) => {
+
+            /*
+               Sprawdzamy tutaj,
+               czy achievement był
+               już wcześniej odblokowany.
+
+               Dzięki temu nowe achievementy
+               mogą być żółte.
+            */
+
+            const isNew =
+                !unlockedAchievements.includes(
+                    achievement.id
+                );
+
+
             if (index > 0) {
                 totalDelay +=
                     (
@@ -1151,65 +1656,106 @@ function showAchievements(
                     animationSpeed;
             }
 
-            setTimeout(() => {
-                const rarity =
-                    getRarity(
-                        achievement.xp
+
+            setTimeout(
+                () => {
+                    const rarity =
+                        getRarity(
+                            achievement.xp
+                        );
+
+
+                    const notification =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    notification.className =
+                        "achievement-notification";
+
+
+                    /*
+                       NOWY ACHIEVEMENT
+                       dostaje klasę:
+                       new-achievement
+                    */
+
+                    if (isNew) {
+                        notification.classList.add(
+                            "new-achievement"
+                        );
+                    }
+
+
+                    const titleClass =
+                        rarity.name ===
+                        "Exclusive"
+                            ? "achievement-title exclusive"
+                            : "achievement-title";
+
+
+                    const rarityHTML =
+                        rarity.name ===
+                        "Exclusive"
+                            ? `
+                                <div class="achievement-rarity exclusive">
+                                    Exclusive
+                                </div>
+                            `
+                            : `
+                                <div
+                                    class="achievement-rarity"
+                                    style="color: ${rarity.color}"
+                                >
+                                    ${rarity.name}
+                                </div>
+                            `;
+
+
+                    notification.innerHTML = `
+                        <div class="${titleClass}">
+                            ${achievement.name}
+                        </div>
+
+                        ${rarityHTML}
+
+                        <div class="achievement-xp">
+                            +${Math.floor(
+                                achievement.xp *
+                                xpMultiplier
+                            )} XP
+                        </div>
+
+                        ${
+                            isNew
+                                ? `
+                                    <div class="achievement-new-label">
+                                        NEW!
+                                    </div>
+                                `
+                                : ""
+                        }
+                    `;
+
+
+                    achievementElement.appendChild(
+                        notification
                     );
-
-                const notification =
-                    document.createElement(
-                        "div"
-                    );
-
-                notification.className =
-                    "achievement-notification";
-
-                const titleClass =
-                    rarity.name === "Exclusive"
-                        ? "achievement-title exclusive"
-                        : "achievement-title";
-
-                const rarityHTML =
-                    rarity.name === "Exclusive"
-                        ? `
-                            <div class="achievement-rarity exclusive">
-                                Exclusive
-                            </div>
-                        `
-                        : `
-                            <div
-                                class="achievement-rarity"
-                                style="color: ${rarity.color}"
-                            >
-                                ${rarity.name}
-                            </div>
-                        `;
-
-                notification.innerHTML = `
-                    <div class="${titleClass}">
-                        ${achievement.name}
-                    </div>
-
-                    ${rarityHTML}
-
-                    <div class="achievement-xp">
-                        +${Math.floor(
-                            achievement.xp *
-                            xpMultiplier
-                        )} XP
-                    </div>
-                `;
-
-                achievementElement.appendChild(
-                    notification
-                );
-            }, totalDelay);
+                },
+                totalDelay
+            );
         }
     );
 
+
     return totalDelay;
 }
+
+
+/* =========================
+   RESET
+========================= */
 
 function resetProgress() {
     const confirmed =
@@ -1217,9 +1763,11 @@ function resetProgress() {
             "Are you sure you want to reset everything?"
         );
 
+
     if (!confirmed) {
         return;
     }
+
 
     xp = 0;
     level = 1;
@@ -1230,50 +1778,103 @@ function resetProgress() {
 
     unlockedAchievements = [];
 
-    localStorage.removeItem("xp");
-    localStorage.removeItem("level");
-    localStorage.removeItem("xpMultiplier");
-    localStorage.removeItem("luck");
-    localStorage.removeItem("animationSpeed");
+
+    localStorage.removeItem(
+        "xp"
+    );
+
+    localStorage.removeItem(
+        "level"
+    );
+
+    localStorage.removeItem(
+        "xpMultiplier"
+    );
+
+    localStorage.removeItem(
+        "luck"
+    );
+
+    localStorage.removeItem(
+        "animationSpeed"
+    );
+
     localStorage.removeItem(
         "unlockedAchievements"
     );
 
+
     achievementElement.innerHTML = "";
 
+
     rollRarity.textContent = "";
+
     rollRarity.className = "";
+
 
     button.disabled = false;
 
-    digits.forEach(digit => {
-        digit.classList.remove("drop");
-        digit.textContent = "";
-    });
+
+    digits.forEach(
+        digit => {
+            digit.classList.remove(
+                "drop"
+            );
+
+            digit.textContent = "";
+
+            digit.style.removeProperty(
+                "--animation-duration"
+            );
+        }
+    );
+
 
     achievementSearch.value = "";
 
-    indexOverlay.classList.remove("open");
+
+    indexOverlay.classList.remove(
+        "open"
+    );
+
 
     updateXP();
+
     updateUpgradeUI();
+
     renderIndex();
 }
 
+
+/* =========================
+   UPGRADE BUTTONS
+========================= */
+
 xpUpgradeButton.addEventListener(
     "click",
-    () => buyUpgrade("xp")
+    () => {
+        buyUpgrade("xp");
+    }
 );
 
 luckUpgradeButton.addEventListener(
     "click",
-    () => buyUpgrade("luck")
+    () => {
+        buyUpgrade("luck");
+    }
 );
 
 speedUpgradeButton.addEventListener(
     "click",
-    () => buyUpgrade("speed")
+    () => {
+        buyUpgrade("speed");
+    }
 );
+
+
+/* =========================
+   RESET BUTTON
+========================= */
 
 document
     .getElementById("resetButton")
@@ -1282,53 +1883,108 @@ document
         resetProgress
     );
 
+
+/* =========================
+   ROLL BUTTON
+========================= */
+
 button.addEventListener(
     "click",
     () => {
-        const number = rollNumber();
+        if (button.disabled) {
+            return;
+        }
+
+
+        const number =
+            rollNumber();
+
 
         button.disabled = true;
 
-        digits.forEach(digit => {
-            digit.classList.remove("drop");
-            digit.textContent = "";
-        });
+
+        /*
+           Czyścimy stare
+           achievementy.
+        */
 
         achievementElement.innerHTML = "";
+
+
+        /*
+           Czyścimy poprzednią
+           animację.
+        */
+
+        digits.forEach(
+            digit => {
+                digit.classList.remove(
+                    "drop"
+                );
+
+                digit.textContent = "";
+            }
+        );
+
 
         rollRarity.classList.remove(
             "visible"
         );
 
-        digits.forEach(digit => {
-            void digit.offsetWidth;
-        });
+
+        /*
+           Wymuszenie restartu
+           animacji CSS.
+        */
+
+        digits.forEach(
+            digit => {
+                void digit.offsetWidth;
+            }
+        );
+
 
         const numberString =
             number.toString();
 
+
         const baseDuration =
-            1000 / animationSpeed;
+            1000 /
+            animationSpeed;
+
 
         const digitDelay =
-            1000 / animationSpeed;
+            1000 /
+            animationSpeed;
 
-        digits.forEach(digit => {
-            digit.style.setProperty(
-                "--animation-duration",
-                `${baseDuration}ms`
-            );
-        });
+
+        digits.forEach(
+            digit => {
+                digit.style.setProperty(
+                    "--animation-duration",
+                    `${baseDuration}ms`
+                );
+            }
+        );
+
+
+        /*
+           Animujemy tylko tyle cyfr,
+           ile faktycznie ma liczba.
+        */
 
         numberString
             .split("")
             .forEach(
                 (digit, index) => {
+
                     const element =
                         digits[index];
 
+
                     element.textContent =
                         digit;
+
 
                     setTimeout(
                         () => {
@@ -1343,19 +1999,36 @@ button.addEventListener(
                 }
             );
 
+
+        /*
+           Czas oczekiwania
+           na zakończenie rolla.
+        */
+
         const animationTime =
             numberString.length === 1
-                ? 2200 / animationSpeed
+                ? 2200 /
+                    animationSpeed
                 : numberString.length === 2
-                    ? 3200 / animationSpeed
-                    : 4200 / animationSpeed;
+                    ? 3200 /
+                        animationSpeed
+                    : 4200 /
+                        animationSpeed;
+
 
         setTimeout(
             () => {
+
+                /*
+                   Znajdujemy achievementy
+                   dla wylosowanej liczby.
+                */
+
                 const achievementIds =
                     getAchievements(
                         number
                     );
+
 
                 const foundAchievements =
                     achievementIds
@@ -1367,31 +2040,67 @@ button.addEventListener(
                         )
                         .filter(Boolean);
 
+
+                /*
+                   Rarity liczby.
+                */
+
                 const rarity =
                     getNumberRarity(
                         number,
                         achievementIds
                     );
 
+
                 showRollRarity(
                     rarity
                 );
+
+
+                /*
+                   Pokazujemy achievementy
+                   POD liczbą.
+                */
 
                 const achievementDelay =
                     showAchievements(
                         foundAchievements
                     );
 
+
                 const achievementAnimationTime =
-                    500 / animationSpeed;
+                    500 /
+                    animationSpeed;
+
 
                 setTimeout(
                     () => {
+
+                        /*
+                           Dopiero teraz
+                           oznaczamy achievementy
+                           jako odblokowane.
+
+                           Dzięki temu showAchievements()
+                           wie, które były nowe.
+                        */
+
                         unlockAchievements(
                             foundAchievements
                         );
 
+
+                        /*
+                           Podstawowe XP
+                           za każdy roll.
+                        */
+
                         addXP(10);
+
+
+                        /*
+                           XP za achievementy.
+                        */
 
                         foundAchievements.forEach(
                             achievement => {
@@ -1401,31 +2110,57 @@ button.addEventListener(
                             }
                         );
 
+
                         saveProgress();
+
+
+                        /*
+                           Ponownie aktualizujemy
+                           UI po wszystkim.
+                        */
+
+                        updateXP();
+                        updateUpgradeUI();
+
+
+                        /*
+                           Odblokowanie rolla.
+                        */
 
                         button.disabled =
                             false;
+
                     },
-                    (
-                        achievementDelay +
-                        achievementAnimationTime
-                    )
+                    achievementDelay +
+                    achievementAnimationTime
                 );
+
             },
             animationTime
         );
     }
 );
 
+
+/* =========================
+   INDEX BUTTON
+========================= */
+
 indexButton.addEventListener(
     "click",
     () => {
         renderIndex();
+
         indexOverlay.classList.add(
             "open"
         );
     }
 );
+
+
+/* =========================
+   CLOSE INDEX
+========================= */
 
 closeIndex.addEventListener(
     "click",
@@ -1435,6 +2170,11 @@ closeIndex.addEventListener(
         );
     }
 );
+
+
+/* =========================
+   CLOSE ON BACKGROUND
+========================= */
 
 indexOverlay.addEventListener(
     "click",
@@ -1450,6 +2190,11 @@ indexOverlay.addEventListener(
     }
 );
 
+
+/* =========================
+   ESC
+========================= */
+
 document.addEventListener(
     "keydown",
     event => {
@@ -1463,10 +2208,20 @@ document.addEventListener(
     }
 );
 
+
+/* =========================
+   SEARCH
+========================= */
+
 achievementSearch.addEventListener(
     "input",
     renderIndex
 );
+
+
+/* =========================
+   START
+========================= */
 
 updateXP();
 updateUpgradeUI();
