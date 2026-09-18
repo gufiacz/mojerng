@@ -263,7 +263,7 @@ const achievements = [
     id: "consecutive",
     name: "Consecutive",
     xp: 143,
-    description: "Roll three digits in consecutive order."
+    description: "Roll two digits in consecutive order."
 },
 
 {
@@ -1868,6 +1868,34 @@ if (
     add("stepByStep");
 
     add("consecutive");
+
+}
+
+/* =====================
+   CONSECUTIVE
+===================== */
+
+for (
+    let i = 0;
+    i < digitValues.length - 1;
+    i++
+) {
+
+    const first =
+        digitValues[i];
+
+    const second =
+        digitValues[i + 1];
+
+    if (
+        Math.abs(first - second) === 1
+    ) {
+
+        add("consecutive");
+
+        break;
+
+    }
 
 }
 
