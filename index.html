@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0d0d">
     <title>Moje RNG</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <button id="indexButton">INDEX</button>
-
-    <!-- WALUTY -->
-
+    <!-- CURRENCY -->
     <div id="currencyPanel">
 
         <button class="currency-button" id="coinsButton">
@@ -35,16 +33,21 @@
 
     </div>
 
-    <!-- ANIMACJA WALUTY -->
-
+    <!-- CURRENCY GAIN -->
     <div id="currencyGain"></div>
 
-    <!-- UPGRADE PANEL -->
+    <!-- RESET -->
+    <button id="resetButton">RESET</button>
 
-    <div id="upgradePanel">
+    <!-- INDEX BUTTON -->
+    <button id="indexButton">INDEX</button>
+
+    <!-- UPGRADE PANEL -->
+    <aside id="upgradePanel">
 
         <div class="upgrade-header">
             <div class="upgrade-title">UPGRADES</div>
+
             <div class="upgrade-subtitle">
                 Improve your luck
             </div>
@@ -54,7 +57,7 @@
 
             <div class="upgrade-card-top">
 
-                <div>
+                <div class="upgrade-text">
                     <div class="upgrade-name">
                         XP Multiplier
                     </div>
@@ -91,7 +94,7 @@
 
             <div class="upgrade-card-top">
 
-                <div>
+                <div class="upgrade-text">
                     <div class="upgrade-name">
                         Luck
                     </div>
@@ -128,7 +131,7 @@
 
             <div class="upgrade-card-top">
 
-                <div>
+                <div class="upgrade-text">
                     <div class="upgrade-name">
                         Animation Speed
                     </div>
@@ -161,10 +164,9 @@
 
         </div>
 
-    </div>
+    </aside>
 
-    <!-- STATYSTYKI UPGRADE -->
-
+    <!-- UPGRADE STATS -->
     <div id="upgradeStats">
 
         <div class="upgrade-stat">
@@ -185,7 +187,6 @@
     </div>
 
     <!-- INDEX -->
-
     <div id="indexOverlay">
 
         <div id="indexPanel">
@@ -193,28 +194,20 @@
             <div class="index-header">
 
                 <div>
-
-                    <h2>
-                        Achievement Index
-                    </h2>
+                    <h2>Achievement Index</h2>
 
                     <span id="indexStats">
                         0 / 0 Achievements Unlocked
                     </span>
-
                 </div>
 
-                <button id="closeIndex">
-                    ×
-                </button>
+                <button id="closeIndex">×</button>
 
             </div>
 
             <div class="index-search-wrapper">
 
-                <span class="search-icon">
-                    ⌕
-                </span>
+                <span class="search-icon">⌕</span>
 
                 <input
                     type="text"
@@ -231,9 +224,8 @@
 
     </div>
 
-    <!-- GŁÓWNA GRA -->
-
-    <div class="container">
+    <!-- MAIN GAME -->
+    <main class="container">
 
         <h1>MOJE RNG</h1>
 
@@ -246,9 +238,7 @@
 
             <div>
                 <span>XP</span>
-                <strong id="xp">
-                    0 / 100
-                </strong>
+                <strong id="xp">0 / 100</strong>
             </div>
 
         </div>
@@ -273,15 +263,13 @@
             ROLL
         </button>
 
+    </main>
+
+    <div id="version">
+        VERSION 1.2
     </div>
 
-    <button id="resetButton">
-        RESET
-    </button>
-
     <script src="script.js"></script>
-
-    <div id="version">VERSION 1.2</div>
 
 </body>
 </html>
