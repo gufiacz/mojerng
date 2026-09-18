@@ -4,9 +4,16 @@
 
 body {
     margin: 0;
+
     background:
-        radial-gradient(circle at center, #191919 0%, #0d0d0d 70%);
+        radial-gradient(
+            circle at center,
+            #191919 0%,
+            #0d0d0d 70%
+        );
+
     color: white;
+
     font-family: Arial, sans-serif;
 
     display: flex;
@@ -14,8 +21,14 @@ body {
     align-items: center;
 
     min-height: 100vh;
+
     overflow-x: hidden;
 }
+
+
+/* =========================
+   MAIN
+========================= */
 
 .container {
     text-align: center;
@@ -27,6 +40,7 @@ h1 {
 
     font-size: 54px;
     font-weight: 900;
+
     letter-spacing: 5px;
 
     color: #fff;
@@ -36,23 +50,206 @@ h1 {
         0 0 30px rgba(88, 101, 242, 0.12);
 }
 
+
+/* =========================
+   CURRENCY
+========================= */
+
+#currencyPanel {
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: 8px;
+
+    z-index: 150;
+}
+
+.currency-button {
+    width: 125px;
+    height: 50px;
+
+    padding: 6px 10px;
+
+    background: #171717;
+
+    border: 1px solid #333;
+
+    border-radius: 9px;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        filter 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.currency-button:hover {
+    background: #202020;
+    border-color: #555;
+
+    transform: translateY(-2px);
+}
+
+.currency-button.active {
+    border-color: #5865f2;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202044,
+            #171717
+        );
+
+    box-shadow:
+        0 0 15px rgba(88, 101, 242, 0.15);
+}
+
+.currency-button.blurred {
+    filter: blur(5px);
+
+    opacity: 0.35;
+
+    pointer-events: none;
+
+    transform: scale(0.96);
+}
+
+.currency-icon {
+    font-size: 20px;
+}
+
+.currency-info {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    line-height: 1;
+}
+
+.currency-name {
+    color: #777;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.currency-info strong {
+    margin-top: 4px;
+
+    color: #fff;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   CURRENCY GAIN
+========================= */
+
+#currencyGain {
+    position: fixed;
+
+    top: 78px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    pointer-events: auto;
+
+    z-index: 200;
+
+    min-height: 24px;
+}
+
+.currency-gain-animation {
+    color: #ffd84d;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 10px rgba(255, 216, 77, 0.5);
+
+    animation:
+        currencyGain 1s ease-out forwards;
+}
+
+.token-gain-animation {
+    color: #c855ff;
+
+    text-shadow:
+        0 0 12px rgba(200, 85, 255, 0.6);
+}
+
+@keyframes currencyGain {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.8);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-25px) scale(1.05);
+    }
+}
+
+
+/* =========================
+   STATS
+========================= */
+
 .stats {
     display: flex;
+
     justify-content: center;
+
     gap: 70px;
+
     margin-bottom: 16px;
 }
 
 .stats div {
     display: flex;
+
     flex-direction: column;
+
     gap: 5px;
 }
 
 .stats span {
     color: #777;
+
     font-size: 12px;
+
     font-weight: bold;
+
     letter-spacing: 2px;
 }
 
@@ -60,32 +257,48 @@ h1 {
     font-size: 25px;
 }
 
+
+/* =========================
+   XP BAR
+========================= */
+
 .xp-bar {
     width: 320px;
     height: 10px;
 
     background: #191919;
+
     border: 1px solid #333;
+
     border-radius: 20px;
 
     margin: 0 auto 30px;
+
     overflow: hidden;
 
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+    box-shadow:
+        inset 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
 #xpFill {
     width: 0%;
     height: 100%;
 
-    background: linear-gradient(
-        90deg,
-        #5865f2,
-        #7c83ff
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #5865f2,
+            #7c83ff
+        );
 
-    transition: width 0.5s ease;
+    transition:
+        width 0.5s ease;
 }
+
+
+/* =========================
+   RESULT
+========================= */
 
 #result {
     position: relative;
@@ -98,9 +311,11 @@ h1 {
         );
 
     border: 2px solid #353535;
+
     border-radius: 18px;
 
     padding: 50px;
+
     margin: 30px 0 20px;
 
     font-size: 60px;
@@ -109,6 +324,7 @@ h1 {
     min-height: 70px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -125,6 +341,7 @@ h1 {
     display: inline-block;
 
     opacity: 0;
+
     transform: translateY(-250px);
 }
 
@@ -136,36 +353,56 @@ h1 {
 }
 
 @keyframes drop {
+
     0% {
         opacity: 0;
-        transform: translateY(-250px) scale(0.7);
+
+        transform:
+            translateY(-250px)
+            scale(0.7);
     }
 
     65% {
         opacity: 1;
-        transform: translateY(20px) scale(1.15);
+
+        transform:
+            translateY(20px)
+            scale(1.15);
     }
 
     85% {
-        transform: translateY(-5px) scale(1.05);
+        transform:
+            translateY(-5px)
+            scale(1.05);
     }
 
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
+
+/* =========================
+   BUTTONS
+========================= */
+
 button {
     background: #5865f2;
+
     color: white;
 
     border: none;
+
     border-radius: 10px;
 
     padding: 15px 50px;
 
     font-size: 20px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -178,8 +415,11 @@ button {
 
 button:hover {
     background: #4752c4;
+
     transform: translateY(-2px);
-    box-shadow: 0 7px 20px rgba(88, 101, 242, 0.2);
+
+    box-shadow:
+        0 7px 20px rgba(88, 101, 242, 0.2);
 }
 
 button:active {
@@ -188,17 +428,28 @@ button:active {
 
 button:disabled {
     opacity: 0.5;
+
     cursor: default;
+
     transform: none;
+
     box-shadow: none;
 }
 
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
 #achievement {
     min-height: 0;
+
     margin: 20px 0;
 
     display: flex;
+
     flex-direction: column;
+
     gap: 10px;
 }
 
@@ -211,11 +462,13 @@ button:disabled {
         );
 
     border: 1px solid #3b3b3b;
+
     border-radius: 12px;
 
     padding: 15px 20px;
 
-    animation: achievementIn 0.5s ease-out forwards;
+    animation:
+        achievementIn 0.5s ease-out forwards;
 
     box-shadow:
         0 10px 25px rgba(0, 0, 0, 0.25);
@@ -223,43 +476,65 @@ button:disabled {
 
 .achievement-title {
     font-size: 21px;
+
     font-weight: bold;
 }
 
 .achievement-rarity {
     font-size: 13px;
+
     margin-top: 4px;
 }
 
 .achievement-xp {
     color: #7c83ff;
+
     font-size: 18px;
+
     font-weight: bold;
+
     margin-top: 6px;
 }
 
 @keyframes achievementIn {
+
     from {
         opacity: 0;
-        transform: translateY(20px) scale(0.95);
+
+        transform:
+            translateY(20px)
+            scale(0.95);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
+
+/* =========================
+   ROLL RARITY
+========================= */
+
 #rollRarity {
     min-height: 22px;
+
     margin-bottom: 5px;
 
     font-size: 13px;
+
     font-weight: bold;
+
     letter-spacing: 2px;
 
     opacity: 0;
-    transition: opacity 0.3s ease;
+
+    transition:
+        opacity 0.3s ease;
 }
 
 #rollRarity.visible {
@@ -275,24 +550,31 @@ button:disabled {
 }
 
 .rarity-ultra {
-    background: linear-gradient(
-        90deg,
-        #ff3b3b,
-        #ff9d00,
-        #ffe600,
-        #38ff70,
-        #38d9ff,
-        #5865f2,
-        #c855ff
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b3b,
+            #ff9d00,
+            #ffe600,
+            #38ff70,
+            #38d9ff,
+            #5865f2,
+            #c855ff
+        );
 
     background-size: 400% 100%;
 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    animation: rainbow 3s linear infinite;
+    animation:
+        rainbow 3s linear infinite;
 }
+
+
+/* =========================
+   UPGRADE PANEL
+========================= */
 
 #upgradePanel {
     position: fixed;
@@ -307,7 +589,9 @@ button:disabled {
     z-index: 100;
 
     display: flex;
+
     flex-direction: column;
+
     gap: 10px;
 }
 
@@ -317,7 +601,9 @@ button:disabled {
 
 .upgrade-title {
     font-size: 18px;
+
     font-weight: 900;
+
     letter-spacing: 2px;
 }
 
@@ -327,6 +613,7 @@ button:disabled {
     color: #666;
 
     font-size: 11px;
+
     letter-spacing: 1px;
 }
 
@@ -339,6 +626,7 @@ button:disabled {
         );
 
     border: 1px solid #303030;
+
     border-radius: 13px;
 
     padding: 13px;
@@ -353,17 +641,21 @@ button:disabled {
 
 .upgrade-card:hover {
     border-color: #444;
+
     transform: translateX(2px);
 }
 
 .upgrade-card-top {
     display: flex;
+
     justify-content: space-between;
+
     gap: 10px;
 }
 
 .upgrade-name {
     font-size: 14px;
+
     font-weight: bold;
 }
 
@@ -373,6 +665,7 @@ button:disabled {
     color: #777;
 
     font-size: 10px;
+
     line-height: 1.35;
 }
 
@@ -380,6 +673,7 @@ button:disabled {
     color: #7c83ff;
 
     font-size: 17px;
+
     font-weight: bold;
 
     white-space: nowrap;
@@ -387,7 +681,9 @@ button:disabled {
 
 .upgrade-bottom {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     margin-top: 12px;
@@ -401,6 +697,7 @@ button:disabled {
     color: #999;
 
     font-size: 11px;
+
     font-weight: bold;
 }
 
@@ -414,15 +711,24 @@ button:disabled {
 
 .upgrade-bottom button.cant-buy {
     background: #292929;
+
     color: #666;
+
     cursor: not-allowed;
 }
 
 .upgrade-bottom button.cant-buy:hover {
     background: #292929;
+
     transform: none;
+
     box-shadow: none;
 }
+
+
+/* =========================
+   UPGRADE STATS
+========================= */
 
 #upgradeStats {
     position: fixed;
@@ -433,6 +739,7 @@ button:disabled {
     z-index: 100;
 
     display: flex;
+
     gap: 8px;
 }
 
@@ -444,6 +751,7 @@ button:disabled {
     background: #171717;
 
     border: 1px solid #303030;
+
     border-radius: 8px;
 
     text-align: center;
@@ -455,7 +763,9 @@ button:disabled {
     color: #666;
 
     font-size: 8px;
+
     font-weight: bold;
+
     letter-spacing: 1px;
 }
 
@@ -469,6 +779,11 @@ button:disabled {
     font-size: 12px;
 }
 
+
+/* =========================
+   INDEX BUTTON
+========================= */
+
 #indexButton {
     position: fixed;
 
@@ -480,12 +795,15 @@ button:disabled {
     padding: 10px 18px;
 
     background: #1c1c1c;
+
     border: 1px solid #444;
+
     border-radius: 8px;
 
     color: white;
 
     font-size: 14px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -493,16 +811,24 @@ button:disabled {
 
 #indexButton:hover {
     background: #292929;
+
     border-color: #5865f2;
 }
 
+
+/* =========================
+   INDEX
+========================= */
+
 #indexOverlay {
     position: fixed;
+
     inset: 0;
 
     z-index: 1000;
 
-    background: rgba(0, 0, 0, 0.8);
+    background:
+        rgba(0, 0, 0, 0.8);
 
     backdrop-filter: blur(5px);
 
@@ -520,18 +846,22 @@ button:disabled {
 
 #indexPanel {
     width: 680px;
+
     max-width: 100%;
+
     max-height: 85vh;
 
     background: #151515;
 
     border: 1px solid #3a3a3a;
+
     border-radius: 17px;
 
     box-shadow:
         0 25px 80px rgba(0, 0, 0, 0.7);
 
     display: flex;
+
     flex-direction: column;
 
     overflow: hidden;
@@ -539,6 +869,7 @@ button:disabled {
 
 .index-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
@@ -551,7 +882,9 @@ button:disabled {
     margin: 0;
 
     font-size: 26px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 }
 
@@ -578,11 +911,13 @@ button:disabled {
     border: none;
 
     font-size: 30px;
+
     line-height: 30px;
 }
 
 #closeIndex:hover {
     color: white;
+
     background: #242424;
 }
 
@@ -620,6 +955,7 @@ button:disabled {
         );
 
     border: 1px solid #333;
+
     border-radius: 10px;
 
     outline: none;
@@ -627,10 +963,6 @@ button:disabled {
     color: white;
 
     font-size: 13px;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
 #achievementSearch::placeholder {
@@ -654,6 +986,7 @@ button:disabled {
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     gap: 15px;
@@ -661,21 +994,19 @@ button:disabled {
     background: #1c1c1c;
 
     border: 1px solid #303030;
+
     border-radius: 12px;
 
     padding: 15px 18px;
 
     margin-bottom: 10px;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
 }
 
 .index-achievement:hover {
     background: #222;
+
     border-color: #505050;
+
     transform: translateX(2px);
 }
 
@@ -685,6 +1016,7 @@ button:disabled {
     color: #555;
 
     font-size: 13px;
+
     text-align: center;
 
     flex-shrink: 0;
@@ -692,11 +1024,13 @@ button:disabled {
 
 .index-info {
     flex: 1;
+
     min-width: 0;
 }
 
 .index-name {
     font-size: 17px;
+
     font-weight: bold;
 
     margin-bottom: 5px;
@@ -706,6 +1040,7 @@ button:disabled {
     color: #999;
 
     font-size: 13px;
+
     line-height: 1.4;
 }
 
@@ -713,6 +1048,7 @@ button:disabled {
     margin-top: 7px;
 
     font-size: 12px;
+
     font-weight: bold;
 }
 
@@ -720,6 +1056,7 @@ button:disabled {
     color: #7c83ff;
 
     font-size: 14px;
+
     font-weight: bold;
 
     white-space: nowrap;
@@ -727,6 +1064,7 @@ button:disabled {
 
 .index-achievement.locked .index-info {
     filter: blur(6px);
+
     user-select: none;
 }
 
@@ -746,6 +1084,7 @@ button:disabled {
     color: #555;
 
     font-size: 12px;
+
     font-weight: bold;
 
     letter-spacing: 1px;
@@ -757,30 +1096,36 @@ button:disabled {
     color: #666;
 
     text-align: center;
+
     font-size: 14px;
 }
 
+
+/* =========================
+   EXCLUSIVE
+========================= */
+
 .exclusive {
-    background: linear-gradient(
-        90deg,
-        #ff3b3b,
-        #ff9d00,
-        #ffe600,
-        #38ff70,
-        #38d9ff,
-        #5865f2,
-        #c855ff,
-        #ff3b3b
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b3b,
+            #ff9d00,
+            #ffe600,
+            #38ff70,
+            #38d9ff,
+            #5865f2,
+            #c855ff,
+            #ff3b3b
+        );
 
     background-size: 400% 100%;
 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    background-clip: text;
-
-    animation: rainbow 3s linear infinite;
+    animation:
+        rainbow 3s linear infinite;
 }
 
 .exclusive-border {
@@ -788,6 +1133,7 @@ button:disabled {
 }
 
 @keyframes rainbow {
+
     0% {
         background-position: 0% 50%;
     }
@@ -796,6 +1142,11 @@ button:disabled {
         background-position: 400% 50%;
     }
 }
+
+
+/* =========================
+   RESET
+========================= */
 
 #resetButton {
     position: fixed;
@@ -810,11 +1161,13 @@ button:disabled {
     background: #171717;
 
     border: 1px solid #333;
+
     border-radius: 8px;
 
     color: #777;
 
     font-size: 11px;
+
     font-weight: bold;
 
     letter-spacing: 1px;
@@ -822,9 +1175,16 @@ button:disabled {
 
 #resetButton:hover {
     background: #241818;
+
     border-color: #8b3333;
+
     color: #ff7777;
 }
+
+
+/* =========================
+   SCROLLBAR
+========================= */
 
 #indexList::-webkit-scrollbar {
     width: 8px;
@@ -836,6 +1196,7 @@ button:disabled {
 
 #indexList::-webkit-scrollbar-thumb {
     background: #3c3c3c;
+
     border-radius: 10px;
 }
 
@@ -843,7 +1204,13 @@ button:disabled {
     background: #555;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 1100px) {
+
     #upgradePanel {
         width: 230px;
     }
@@ -853,7 +1220,9 @@ button:disabled {
     }
 }
 
+
 @media (max-width: 850px) {
+
     #upgradePanel {
         position: relative;
 
@@ -869,9 +1238,10 @@ button:disabled {
 
     body {
         flex-direction: column;
+
         justify-content: flex-start;
 
-        padding-top: 80px;
+        padding-top: 90px;
     }
 
     .container {
@@ -879,23 +1249,32 @@ button:disabled {
     }
 
     #upgradeStats {
-        top: 20px;
+        top: 85px;
+
         right: 15px;
     }
 
     #resetButton {
         top: 20px;
+
         left: 15px;
     }
 
     #indexButton {
         display: none;
     }
+
+    #currencyPanel {
+        top: 15px;
+    }
 }
 
+
 @media (max-width: 600px) {
+
     h1 {
         font-size: 40px;
+
         letter-spacing: 3px;
     }
 
@@ -917,6 +1296,7 @@ button:disabled {
 
     .index-achievement {
         padding: 13px;
+
         gap: 10px;
     }
 
@@ -942,6 +1322,30 @@ button:disabled {
 
     .upgrade-stat {
         min-width: 58px;
+
         padding: 6px;
     }
+
+    #currencyPanel {
+        width: calc(100% - 30px);
+
+        justify-content: center;
+    }
+
+    .currency-button {
+        width: 120px;
+    }
+}
+#version {
+    position: fixed;
+    bottom: 12px;
+    left: 15px;
+
+    color: #555;
+
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    z-index: 100;
 }

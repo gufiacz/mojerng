@@ -11,62 +11,162 @@
 
     <button id="indexButton">INDEX</button>
 
-    <div id="upgradePanel">
-        <div class="upgrade-header">
-            <div class="upgrade-title">UPGRADES</div>
-            <div class="upgrade-subtitle">Improve your luck</div>
-        </div>
+    <!-- WALUTY -->
 
-        <div class="upgrade-card" id="xpUpgrade">
-            <div class="upgrade-card-top">
-                <div>
-                    <div class="upgrade-name">XP Multiplier</div>
-                    <div class="upgrade-description">Gain more XP from every achievement.</div>
-                </div>
+    <div id="currencyPanel">
 
-                <div class="upgrade-value" id="xpMultiplierValue">1.0x</div>
-            </div>
+        <button class="currency-button" id="coinsButton">
+            <span class="currency-icon">🪙</span>
 
-            <div class="upgrade-bottom">
-                <span id="xpUpgradeCost">2 LVL</span>
-                <button id="xpUpgradeButton">UPGRADE</button>
-            </div>
-        </div>
+            <span class="currency-info">
+                <span class="currency-name">COINS</span>
+                <strong id="coinsValue">0</strong>
+            </span>
+        </button>
 
-        <div class="upgrade-card" id="luckUpgrade">
-            <div class="upgrade-card-top">
-                <div>
-                    <div class="upgrade-name">Luck</div>
-                    <div class="upgrade-description">Increase your chance of rare numbers.</div>
-                </div>
+        <button class="currency-button" id="tokenButton">
+            <span class="currency-icon">🃏</span>
 
-                <div class="upgrade-value" id="luckValue">1.0x</div>
-            </div>
+            <span class="currency-info">
+                <span class="currency-name">LARP TOKENS</span>
+                <strong id="tokenValue">0</strong>
+            </span>
+        </button>
 
-            <div class="upgrade-bottom">
-                <span id="luckUpgradeCost">3 LVL</span>
-                <button id="luckUpgradeButton">UPGRADE</button>
-            </div>
-        </div>
-
-        <div class="upgrade-card" id="speedUpgrade">
-            <div class="upgrade-card-top">
-                <div>
-                    <div class="upgrade-name">Animation Speed</div>
-                    <div class="upgrade-description">Make the roll animation faster.</div>
-                </div>
-
-                <div class="upgrade-value" id="speedValue">1.0x</div>
-            </div>
-
-            <div class="upgrade-bottom">
-                <span id="speedUpgradeCost">2 LVL</span>
-                <button id="speedUpgradeButton">UPGRADE</button>
-            </div>
-        </div>
     </div>
 
+    <!-- ANIMACJA WALUTY -->
+
+    <div id="currencyGain"></div>
+
+    <!-- UPGRADE PANEL -->
+
+    <div id="upgradePanel">
+
+        <div class="upgrade-header">
+            <div class="upgrade-title">UPGRADES</div>
+            <div class="upgrade-subtitle">
+                Improve your luck
+            </div>
+        </div>
+
+        <div class="upgrade-card">
+
+            <div class="upgrade-card-top">
+
+                <div>
+                    <div class="upgrade-name">
+                        XP Multiplier
+                    </div>
+
+                    <div class="upgrade-description">
+                        Gain more XP from every achievement.
+                    </div>
+                </div>
+
+                <div
+                    class="upgrade-value"
+                    id="xpMultiplierValue"
+                >
+                    1.0x
+                </div>
+
+            </div>
+
+            <div class="upgrade-bottom">
+
+                <span id="xpUpgradeCost">
+                    7 COINS
+                </span>
+
+                <button id="xpUpgradeButton">
+                    UPGRADE
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="upgrade-card">
+
+            <div class="upgrade-card-top">
+
+                <div>
+                    <div class="upgrade-name">
+                        Luck
+                    </div>
+
+                    <div class="upgrade-description">
+                        Increase your chance of rare numbers.
+                    </div>
+                </div>
+
+                <div
+                    class="upgrade-value"
+                    id="luckValue"
+                >
+                    1.0x
+                </div>
+
+            </div>
+
+            <div class="upgrade-bottom">
+
+                <span id="luckUpgradeCost">
+                    8 COINS
+                </span>
+
+                <button id="luckUpgradeButton">
+                    UPGRADE
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="upgrade-card">
+
+            <div class="upgrade-card-top">
+
+                <div>
+                    <div class="upgrade-name">
+                        Animation Speed
+                    </div>
+
+                    <div class="upgrade-description">
+                        Make the roll animation faster.
+                    </div>
+                </div>
+
+                <div
+                    class="upgrade-value"
+                    id="speedValue"
+                >
+                    1.0x
+                </div>
+
+            </div>
+
+            <div class="upgrade-bottom">
+
+                <span id="speedUpgradeCost">
+                    7 COINS
+                </span>
+
+                <button id="speedUpgradeButton">
+                    UPGRADE
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STATYSTYKI UPGRADE -->
+
     <div id="upgradeStats">
+
         <div class="upgrade-stat">
             <span>XP</span>
             <strong id="statXP">1.0x</strong>
@@ -81,40 +181,64 @@
             <span>SPEED</span>
             <strong id="statSpeed">1.0x</strong>
         </div>
+
     </div>
 
+    <!-- INDEX -->
+
     <div id="indexOverlay">
+
         <div id="indexPanel">
 
             <div class="index-header">
+
                 <div>
-                    <h2>Achievement Index</h2>
-                    <span id="indexStats">0 / 0 Achievements Unlocked</span>
+
+                    <h2>
+                        Achievement Index
+                    </h2>
+
+                    <span id="indexStats">
+                        0 / 0 Achievements Unlocked
+                    </span>
+
                 </div>
 
-                <button id="closeIndex">×</button>
+                <button id="closeIndex">
+                    ×
+                </button>
+
             </div>
 
             <div class="index-search-wrapper">
-                <span class="search-icon">⌕</span>
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
                 <input
                     type="text"
                     id="achievementSearch"
                     placeholder="Search achievements..."
                     autocomplete="off"
                 >
+
             </div>
 
             <div id="indexList"></div>
 
         </div>
+
     </div>
+
+    <!-- GŁÓWNA GRA -->
 
     <div class="container">
 
         <h1>MOJE RNG</h1>
 
         <div class="stats">
+
             <div>
                 <span>LEVEL</span>
                 <strong id="level">1</strong>
@@ -122,8 +246,11 @@
 
             <div>
                 <span>XP</span>
-                <strong id="xp">0 / 100</strong>
+                <strong id="xp">
+                    0 / 100
+                </strong>
             </div>
+
         </div>
 
         <div class="xp-bar">
@@ -131,21 +258,30 @@
         </div>
 
         <div id="result">
+
             <span id="digit1" class="digit"></span>
             <span id="digit2" class="digit"></span>
             <span id="digit3" class="digit"></span>
+
         </div>
 
         <div id="rollRarity"></div>
 
         <div id="achievement"></div>
 
-        <button id="rollButton">ROLL</button>
+        <button id="rollButton">
+            ROLL
+        </button>
 
     </div>
 
-    <button id="resetButton">RESET</button>
+    <button id="resetButton">
+        RESET
+    </button>
 
     <script src="script.js"></script>
+
+    <div id="version">VERSION 1.2</div>
+
 </body>
 </html>
