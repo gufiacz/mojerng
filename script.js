@@ -430,7 +430,7 @@ const achievements = [
 {
     id: "tripleTrouble",
     name: "Triple Trouble",
-    xp: 473,
+    xp: 523,
     description: "Roll a three-digit number with three matching digits."
 },
 
