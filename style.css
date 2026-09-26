@@ -6,6 +6,7 @@
 
 body {
     min-height: 100vh;
+
     background:
         radial-gradient(
             circle at top,
@@ -13,10 +14,17 @@ body {
             #0d0d0d 45%,
             #050505 100%
         );
+
     color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     overflow-x: hidden;
 }
+
 
 /* =========================
    MAIN CONTAINER
@@ -24,17 +32,24 @@ body {
 
 .container {
     width: min(700px, 92%);
+
     margin: 0 auto;
+
     padding-top: 90px;
+
     text-align: center;
 }
 
 .container h1 {
     font-size: 42px;
+
     letter-spacing: 6px;
+
     margin-bottom: 28px;
+
     font-weight: 900;
 }
+
 
 /* =========================
    STATS
@@ -42,21 +57,29 @@ body {
 
 .stats {
     display: flex;
+
     justify-content: center;
+
     gap: 80px;
+
     margin-bottom: 15px;
 }
 
 .stats > div {
     display: flex;
+
     flex-direction: column;
+
     gap: 5px;
 }
 
 .stats span {
     color: #777;
+
     font-size: 11px;
+
     letter-spacing: 2px;
+
     font-weight: bold;
 }
 
@@ -64,31 +87,45 @@ body {
     font-size: 21px;
 }
 
+
 /* =========================
    XP BAR
 ========================= */
 
 .xp-bar {
     width: 100%;
+
     height: 8px;
+
     background: #1c1c1c;
+
     border: 1px solid #292929;
+
     border-radius: 10px;
+
     overflow: hidden;
+
     margin-bottom: 45px;
 }
 
 #xpFill {
     height: 100%;
+
     width: 0%;
-    background: linear-gradient(
-        90deg,
-        #4da6ff,
-        #7bc4ff
-    );
+
+    background:
+        linear-gradient(
+            90deg,
+            #4da6ff,
+            #7bc4ff
+        );
+
     border-radius: inherit;
-    transition: width 0.25s ease;
+
+    transition:
+        width 0.25s ease;
 }
+
 
 /* =========================
    RESULT
@@ -98,43 +135,52 @@ body {
     min-height: 125px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     gap: 8px;
+
     margin-bottom: 15px;
 }
 
 .digit {
     width: 85px;
+
     height: 105px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
-    background: linear-gradient(
-        145deg,
-        #202020,
-        #101010
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #202020,
+            #101010
+        );
 
     border: 1px solid #303030;
+
     border-radius: 14px;
 
     font-size: 65px;
+
     font-weight: 900;
 
     box-shadow:
         inset 0 0 20px rgba(255,255,255,0.025),
         0 10px 30px rgba(0,0,0,0.35);
 
-    /* Ukryte zanim animacja wystartuje */
     opacity: 0;
-    transform: translateY(-100px);
+
+    transform:
+        translateY(-100px);
 }
 
-/* Animacja cyfry */
 .digit.drop {
     animation:
         digitDrop
@@ -171,18 +217,26 @@ body {
     }
 }
 
+
 /* =========================
    RARITY
 ========================= */
 
 #rollRarity {
     min-height: 25px;
+
     font-size: 13px;
+
     font-weight: 900;
+
     letter-spacing: 3px;
+
     margin-bottom: 18px;
+
     opacity: 0;
-    transition: opacity 0.2s ease;
+
+    transition:
+        opacity 0.2s ease;
 }
 
 #rollRarity.visible {
@@ -199,9 +253,11 @@ body {
 
 .rarity-ultra {
     color: #ff9d00;
+
     text-shadow:
         0 0 8px rgba(255,157,0,0.45);
 }
+
 
 /* =========================
    ACHIEVEMENTS
@@ -209,13 +265,17 @@ body {
 
 #achievement {
     width: 100%;
+
     min-height: 0;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     gap: 8px;
+
     margin-bottom: 25px;
 }
 
@@ -226,13 +286,15 @@ body {
 
     padding: 14px 18px;
 
-    background: linear-gradient(
-        145deg,
-        #1c1c1c,
-        #101010
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #1c1c1c,
+            #101010
+        );
 
     border: 1px solid #292929;
+
     border-radius: 10px;
 
     text-align: left;
@@ -248,14 +310,21 @@ body {
 }
 
 @keyframes achievementAppear {
+
     from {
         opacity: 0;
-        transform: translateY(15px) scale(0.97);
+
+        transform:
+            translateY(15px)
+            scale(0.97);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
@@ -269,26 +338,31 @@ body {
 
 .achievement-title {
     font-size: 16px;
+
     font-weight: 900;
+
     margin-bottom: 4px;
 }
 
 .achievement-title.exclusive {
-    background: linear-gradient(
-        90deg,
-        #ff3b3b,
-        #ff9d00,
-        #ffe600,
-        #55d66b,
-        #4da6ff,
-        #a855f7,
-        #ff3b3b
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b3b,
+            #ff9d00,
+            #ffe600,
+            #55d66b,
+            #4da6ff,
+            #a855f7,
+            #ff3b3b
+        );
 
     background-size: 300% auto;
 
     color: transparent;
+
     background-clip: text;
+
     -webkit-background-clip: text;
 
     animation:
@@ -300,8 +374,11 @@ body {
 
 .achievement-rarity {
     font-size: 10px;
+
     font-weight: 900;
+
     letter-spacing: 1.5px;
+
     margin-bottom: 5px;
 }
 
@@ -317,7 +394,9 @@ body {
 
 .achievement-xp {
     color: #888;
+
     font-size: 11px;
+
     font-weight: bold;
 }
 
@@ -325,16 +404,21 @@ body {
     position: absolute;
 
     right: 15px;
+
     top: 50%;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%);
 
     color: #4da6ff;
 
     font-size: 11px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 }
+
 
 /* =========================
    ROLL BUTTON
@@ -342,21 +426,26 @@ body {
 
 #rollButton {
     width: 230px;
+
     height: 65px;
 
     border: 1px solid #3a3a3a;
+
     border-radius: 12px;
 
-    background: linear-gradient(
-        145deg,
-        #252525,
-        #151515
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #252525,
+            #151515
+        );
 
     color: #fff;
 
     font-size: 18px;
+
     font-weight: 900;
+
     letter-spacing: 4px;
 
     cursor: pointer;
@@ -369,28 +458,33 @@ body {
 }
 
 #rollButton:hover:not(:disabled) {
-    background: linear-gradient(
-        145deg,
-        #303030,
-        #181818
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #303030,
+            #181818
+        );
 
     border-color: #555;
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
         0 8px 25px rgba(0,0,0,0.4);
 }
 
 #rollButton:active:not(:disabled) {
-    transform: translateY(1px);
+    transform:
+        translateY(1px);
 }
 
 #rollButton:disabled {
     opacity: 0.45;
+
     cursor: not-allowed;
 }
+
 
 /* =========================
    RESET BUTTON
@@ -400,18 +494,23 @@ body {
     position: fixed;
 
     top: 20px;
+
     left: 20px;
 
     padding: 9px 15px;
 
     border: 1px solid #303030;
+
     border-radius: 8px;
 
     background: #151515;
+
     color: #777;
 
     font-size: 10px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 
     cursor: pointer;
@@ -424,9 +523,12 @@ body {
 
 #resetButton:hover {
     color: #ff5555;
+
     border-color: #663333;
+
     background: #1c1111;
 }
+
 
 /* =========================
    INDEX BUTTON
@@ -436,18 +538,23 @@ body {
     position: fixed;
 
     top: 20px;
+
     right: 20px;
 
     padding: 10px 17px;
 
     border: 1px solid #303030;
+
     border-radius: 8px;
 
     background: #151515;
+
     color: #aaa;
 
     font-size: 10px;
+
     font-weight: 900;
+
     letter-spacing: 1.5px;
 
     cursor: pointer;
@@ -461,10 +568,15 @@ body {
 
 #indexButton:hover {
     color: #fff;
+
     border-color: #555;
+
     background: #202020;
-    transform: translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
+
 
 /* =========================
    CURRENCY PANEL
@@ -474,9 +586,11 @@ body {
     position: fixed;
 
     top: 65px;
+
     left: 20px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 8px;
@@ -488,6 +602,7 @@ body {
     min-width: 145px;
 
     display: flex;
+
     align-items: center;
 
     gap: 10px;
@@ -497,11 +612,13 @@ body {
     background: #131313;
 
     border: 1px solid #292929;
+
     border-radius: 9px;
 
     color: #fff;
 
     cursor: pointer;
+
     text-align: left;
 
     transition:
@@ -513,11 +630,13 @@ body {
 
 .currency-button:hover {
     background: #1c1c1c;
+
     border-color: #414141;
 }
 
 .currency-button.active {
     border-color: #555;
+
     background: #1c1c1c;
 }
 
@@ -531,7 +650,9 @@ body {
 
 .currency-info {
     display: flex;
+
     flex-direction: column;
+
     gap: 2px;
 }
 
@@ -539,13 +660,16 @@ body {
     color: #777;
 
     font-size: 8px;
+
     letter-spacing: 1.3px;
+
     font-weight: 900;
 }
 
 .currency-info strong {
     font-size: 13px;
 }
+
 
 /* =========================
    CURRENCY GAIN
@@ -555,6 +679,7 @@ body {
     position: fixed;
 
     top: 155px;
+
     left: 20px;
 
     z-index: 20;
@@ -566,7 +691,9 @@ body {
     color: #ffd84d;
 
     font-size: 12px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 
     animation:
@@ -584,19 +711,26 @@ body {
 
     0% {
         opacity: 0;
-        transform: translateY(10px);
+
+        transform:
+            translateY(10px);
     }
 
     20% {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-18px);
+
+        transform:
+            translateY(-18px);
     }
 }
+
 
 /* =========================
    UPGRADE PANEL
@@ -606,6 +740,7 @@ body {
     position: fixed;
 
     right: 20px;
+
     top: 65px;
 
     width: 265px;
@@ -619,7 +754,9 @@ body {
 
 .upgrade-title {
     font-size: 15px;
+
     font-weight: 900;
+
     letter-spacing: 2px;
 }
 
@@ -629,29 +766,36 @@ body {
     color: #666;
 
     font-size: 9px;
+
     letter-spacing: 0.8px;
 }
 
 .upgrade-card {
     padding: 14px;
+
     margin-bottom: 9px;
 
-    background: linear-gradient(
-        145deg,
-        #191919,
-        #101010
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #101010
+        );
 
     border: 1px solid #292929;
+
     border-radius: 10px;
 }
 
 .upgrade-card-top {
     display: flex;
+
     justify-content: space-between;
+
     align-items: flex-start;
 
     gap: 10px;
+
     margin-bottom: 13px;
 }
 
@@ -661,7 +805,9 @@ body {
 
 .upgrade-name {
     font-size: 12px;
+
     font-weight: 900;
+
     margin-bottom: 4px;
 }
 
@@ -669,6 +815,7 @@ body {
     color: #666;
 
     font-size: 9px;
+
     line-height: 1.35;
 }
 
@@ -676,6 +823,7 @@ body {
     color: #4da6ff;
 
     font-size: 14px;
+
     font-weight: 900;
 
     white-space: nowrap;
@@ -683,13 +831,17 @@ body {
 
 .upgrade-bottom {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     color: #777;
 
     font-size: 9px;
+
     font-weight: 900;
+
     letter-spacing: 0.5px;
 }
 
@@ -697,13 +849,17 @@ body {
     padding: 7px 10px;
 
     background: #202020;
+
     color: #fff;
 
     border: 1px solid #353535;
+
     border-radius: 6px;
 
     font-size: 8px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 
     cursor: pointer;
@@ -716,14 +872,17 @@ body {
 
 .upgrade-bottom button:hover:not(:disabled) {
     background: #292929;
+
     border-color: #555;
 }
 
 .upgrade-bottom button:disabled,
 .upgrade-bottom button.cant-buy {
     opacity: 0.3;
+
     cursor: not-allowed;
 }
+
 
 /* =========================
    UPGRADE STATS
@@ -733,9 +892,11 @@ body {
     position: fixed;
 
     bottom: 20px;
+
     right: 20px;
 
     display: flex;
+
     gap: 8px;
 
     z-index: 10;
@@ -747,6 +908,7 @@ body {
     padding: 7px 10px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 2px;
@@ -754,6 +916,7 @@ body {
     background: #121212;
 
     border: 1px solid #292929;
+
     border-radius: 7px;
 
     text-align: center;
@@ -763,14 +926,18 @@ body {
     color: #555;
 
     font-size: 7px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 }
 
 .upgrade-stat strong {
     color: #aaa;
+
     font-size: 10px;
 }
+
 
 /* =========================
    INDEX OVERLAY
@@ -784,17 +951,22 @@ body {
     z-index: 100;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 20px;
 
-    background: rgba(0,0,0,0.78);
+    background:
+        rgba(0,0,0,0.78);
 
     backdrop-filter: blur(8px);
+
     -webkit-backdrop-filter: blur(8px);
 
     opacity: 0;
+
     visibility: hidden;
 
     transition:
@@ -804,8 +976,10 @@ body {
 
 #indexOverlay.open {
     opacity: 1;
+
     visibility: visible;
 }
+
 
 /* =========================
    INDEX PANEL
@@ -813,9 +987,11 @@ body {
 
 #indexPanel {
     width: min(680px, 100%);
+
     max-height: 88vh;
 
     display: flex;
+
     flex-direction: column;
 
     background:
@@ -826,6 +1002,7 @@ body {
         );
 
     border: 1px solid #303030;
+
     border-radius: 16px;
 
     box-shadow:
@@ -833,15 +1010,20 @@ body {
 
     overflow: hidden;
 
-    transform: translateY(15px) scale(0.98);
+    transform:
+        translateY(15px)
+        scale(0.98);
 
     transition:
         transform 0.25s ease;
 }
 
 #indexOverlay.open #indexPanel {
-    transform: translateY(0) scale(1);
+    transform:
+        translateY(0)
+        scale(1);
 }
+
 
 /* =========================
    INDEX HEADER
@@ -849,7 +1031,9 @@ body {
 
 .index-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     padding: 20px 22px;
@@ -859,7 +1043,9 @@ body {
 
 .index-header h2 {
     font-size: 20px;
+
     font-weight: 900;
+
     letter-spacing: 1px;
 }
 
@@ -871,39 +1057,76 @@ body {
     color: #666;
 
     font-size: 10px;
+
     letter-spacing: 0.5px;
 }
 
-#closeIndex {
+.index-header-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+#closeIndex,
+#refreshIndex {
     width: 34px;
+
     height: 34px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     border: 1px solid #303030;
+
     border-radius: 8px;
 
     background: #151515;
-    color: #777;
 
-    font-size: 22px;
-    line-height: 1;
+    color: #777;
 
     cursor: pointer;
 
     transition:
         color 0.15s ease,
         background 0.15s ease,
-        border-color 0.15s ease;
+        border-color 0.15s ease,
+        transform 0.15s ease;
 }
 
-#closeIndex:hover {
+#closeIndex {
+    font-size: 22px;
+
+    line-height: 1;
+}
+
+#refreshIndex {
+    font-size: 19px;
+
+    line-height: 1;
+}
+
+#closeIndex:hover,
+#refreshIndex:hover {
     color: #fff;
+
     background: #222;
+
     border-color: #555;
 }
+
+#refreshIndex:active {
+    transform: rotate(180deg);
+}
+
+#refreshIndex.refreshing {
+    color: #4da6ff;
+}
+
 
 /* =========================
    INDEX SEARCH
@@ -921,9 +1144,11 @@ body {
     position: absolute;
 
     left: 30px;
+
     top: 50%;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%);
 
     color: #666;
 
@@ -934,13 +1159,16 @@ body {
 
 #achievementSearch {
     width: 100%;
+
     height: 42px;
 
-    padding: 0 15px 0 40px;
+    padding:
+        0 15px 0 40px;
 
     background: #111;
 
     border: 1px solid #292929;
+
     border-radius: 9px;
 
     color: #fff;
@@ -960,73 +1188,18 @@ body {
 
 #achievementSearch:focus {
     border-color: #4a4a4a;
-    background: #151515;
-}
-
-/* =========================
-   REFRESH INDEX
-========================= */
-
-.index-actions {
-    display: flex;
-    justify-content: flex-end;
-
-    padding: 0 18px 12px;
-}
-
-#refreshIndex {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    padding: 8px 13px;
 
     background: #151515;
-
-    border: 1px solid #303030;
-    border-radius: 7px;
-
-    color: #888;
-
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition:
-        color 0.15s ease,
-        background 0.15s ease,
-        border-color 0.15s ease,
-        transform 0.15s ease;
 }
 
-#refreshIndex:hover {
-    color: #fff;
-
-    background: #202020;
-
-    border-color: #505050;
-
-    transform: translateY(-1px);
-}
-
-#refreshIndex:active {
-    transform: translateY(0);
-}
-
-#refreshIndex.refreshing {
-    color: #4da6ff;
-}
 
 /* =========================
    INDEX LIST
 ========================= */
 
 #indexList {
-    padding: 10px 18px 18px;
+    padding:
+        10px 18px 18px;
 
     overflow-y: auto;
 
@@ -1043,12 +1216,14 @@ body {
 
 #indexList::-webkit-scrollbar-thumb {
     background: #303030;
+
     border-radius: 10px;
 }
 
 #indexList::-webkit-scrollbar-thumb:hover {
     background: #454545;
 }
+
 
 /* =========================
    INDEX ACHIEVEMENT
@@ -1058,6 +1233,7 @@ body {
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     gap: 13px;
@@ -1071,6 +1247,7 @@ body {
     background: #141414;
 
     border: 1px solid #252525;
+
     border-radius: 9px;
 
     transition:
@@ -1080,6 +1257,7 @@ body {
 
 .index-achievement:hover {
     background: #191919;
+
     border-color: #353535;
 }
 
@@ -1089,27 +1267,33 @@ body {
 
 .index-number {
     width: 27px;
+
     min-width: 27px;
 
     height: 27px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     background: #1f1f1f;
 
     border: 1px solid #303030;
+
     border-radius: 6px;
 
     color: #666;
 
     font-size: 9px;
+
     font-weight: 900;
 }
 
 .index-info {
     flex: 1;
+
     min-width: 0;
 }
 
@@ -1117,25 +1301,29 @@ body {
     margin-bottom: 3px;
 
     font-size: 12px;
+
     font-weight: 900;
 }
 
 .index-name.exclusive {
-    background: linear-gradient(
-        90deg,
-        #ff3b3b,
-        #ff9d00,
-        #ffe600,
-        #55d66b,
-        #4da6ff,
-        #a855f7,
-        #ff3b3b
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b3b,
+            #ff9d00,
+            #ffe600,
+            #55d66b,
+            #4da6ff,
+            #a855f7,
+            #ff3b3b
+        );
 
     background-size: 300% auto;
 
     color: transparent;
+
     background-clip: text;
+
     -webkit-background-clip: text;
 
     animation:
@@ -1149,6 +1337,7 @@ body {
     color: #666;
 
     font-size: 9px;
+
     line-height: 1.35;
 
     max-width: 440px;
@@ -1158,6 +1347,7 @@ body {
     margin-top: 5px;
 
     font-size: 8px;
+
     font-weight: 900;
 
     letter-spacing: 1px;
@@ -1179,6 +1369,7 @@ body {
     color: #777;
 
     font-size: 9px;
+
     font-weight: 900;
 
     text-align: right;
@@ -1190,22 +1381,27 @@ body {
     position: absolute;
 
     right: 14px;
+
     bottom: 8px;
 
     color: #444;
 
     font-size: 7px;
+
     font-weight: 900;
 
     letter-spacing: 1px;
 }
 
 .index-achievement.exclusive-border {
-    border-color: rgba(168,85,247,0.35);
+    border-color:
+        rgba(168,85,247,0.35);
 
     box-shadow:
-        inset 0 0 15px rgba(168,85,247,0.025);
+        inset 0 0 15px
+        rgba(168,85,247,0.025);
 }
+
 
 /* =========================
    NO SEARCH RESULTS
@@ -1219,8 +1415,10 @@ body {
     text-align: center;
 
     font-size: 11px;
+
     font-weight: bold;
 }
+
 
 /* =========================
    RAINBOW
@@ -1237,6 +1435,7 @@ body {
     }
 }
 
+
 /* =========================
    VERSION
 ========================= */
@@ -1245,15 +1444,18 @@ body {
     position: fixed;
 
     bottom: 20px;
+
     left: 20px;
 
     color: #333;
 
     font-size: 8px;
+
     font-weight: 900;
 
     letter-spacing: 1px;
 }
+
 
 /* =========================
    MOBILE
@@ -1284,6 +1486,7 @@ body {
     }
 }
 
+
 @media (max-width: 600px) {
 
     .container {
@@ -1292,6 +1495,7 @@ body {
 
     .container h1 {
         font-size: 30px;
+
         letter-spacing: 4px;
     }
 
@@ -1301,6 +1505,7 @@ body {
 
     .digit {
         width: 65px;
+
         height: 85px;
 
         font-size: 50px;
@@ -1312,26 +1517,31 @@ body {
 
     #rollButton {
         width: 200px;
+
         height: 58px;
     }
 
     #currencyPanel {
         top: 60px;
+
         left: 10px;
     }
 
     .currency-button {
         min-width: 125px;
+
         padding: 7px 9px;
     }
 
     #indexButton {
         top: 15px;
+
         right: 10px;
     }
 
     #resetButton {
         top: 15px;
+
         left: 10px;
     }
 
@@ -1345,6 +1555,7 @@ body {
 
     #indexPanel {
         max-height: 94vh;
+
         border-radius: 12px;
     }
 
@@ -1356,27 +1567,28 @@ body {
         padding: 10px 12px;
     }
 
-    .index-actions {
-        padding: 0 12px 10px;
-    }
-
     #indexList {
-        padding: 8px 12px 12px;
+        padding:
+            8px 12px 12px;
     }
 
     .index-achievement {
         gap: 9px;
+
         padding: 10px;
     }
 
     .index-number {
         width: 23px;
+
         min-width: 23px;
+
         height: 23px;
     }
 
     .index-xp {
         min-width: auto;
+
         font-size: 8px;
     }
 
@@ -1390,14 +1602,17 @@ body {
 
     #version {
         bottom: 10px;
+
         left: 10px;
     }
 }
+
 
 @media (max-width: 400px) {
 
     .digit {
         width: 55px;
+
         height: 75px;
 
         font-size: 43px;

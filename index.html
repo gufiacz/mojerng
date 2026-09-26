@@ -10,6 +10,10 @@
 
 <body>
 
+    <!-- =========================
+         CURRENCY PANEL
+    ========================== -->
+
     <div id="currencyPanel">
 
         <button class="currency-button" id="coinsButton">
@@ -32,27 +36,52 @@
 
     </div>
 
+
+    <!-- Currency gain animation -->
+
     <div id="currencyGain"></div>
 
-    <button id="resetButton">RESET</button>
 
-    <button id="indexButton">INDEX</button>
+    <!-- =========================
+         TOP BUTTONS
+    ========================== -->
+
+    <button id="resetButton">
+        RESET
+    </button>
+
+    <button id="indexButton">
+        INDEX
+    </button>
+
+
+    <!-- =========================
+         UPGRADE PANEL
+    ========================== -->
 
     <aside id="upgradePanel">
 
         <div class="upgrade-header">
-            <div class="upgrade-title">UPGRADES</div>
+
+            <div class="upgrade-title">
+                UPGRADES
+            </div>
 
             <div class="upgrade-subtitle">
                 Improve your stats
             </div>
+
         </div>
+
+
+        <!-- XP MULTIPLIER -->
 
         <div class="upgrade-card">
 
             <div class="upgrade-card-top">
 
                 <div class="upgrade-text">
+
                     <div class="upgrade-name">
                         XP Multiplier
                     </div>
@@ -60,6 +89,7 @@
                     <div class="upgrade-description">
                         Gain more XP from every achievement.
                     </div>
+
                 </div>
 
                 <div
@@ -85,11 +115,15 @@
 
         </div>
 
+
+        <!-- ANIMATION SPEED -->
+
         <div class="upgrade-card">
 
             <div class="upgrade-card-top">
 
                 <div class="upgrade-text">
+
                     <div class="upgrade-name">
                         Animation Speed
                     </div>
@@ -97,6 +131,7 @@
                     <div class="upgrade-description">
                         Make the roll animation faster.
                     </div>
+
                 </div>
 
                 <div
@@ -122,37 +157,118 @@
 
         </div>
 
+
+        <!-- COINS MULTIPLIER -->
+
+        <div class="upgrade-card">
+
+            <div class="upgrade-card-top">
+
+                <div class="upgrade-text">
+
+                    <div class="upgrade-name">
+                        Coins Multiplier
+                    </div>
+
+                    <div class="upgrade-description">
+                        Gain more Coins from every roll.
+                    </div>
+
+                </div>
+
+                <div
+                    class="upgrade-value"
+                    id="coinsMultiplierValue"
+                >
+                    1.0x
+                </div>
+
+            </div>
+
+            <div class="upgrade-bottom">
+
+                <span id="coinsUpgradeCost">
+                    2 COINS
+                </span>
+
+                <button id="coinsUpgradeButton">
+                    UPGRADE
+                </button>
+
+            </div>
+
+        </div>
+
     </aside>
+
+
+    <!-- =========================
+         UPGRADE STATS
+    ========================== -->
 
     <div id="upgradeStats">
 
         <div class="upgrade-stat">
+
             <span>XP</span>
-            <strong id="statXP">1.0x</strong>
+
+            <strong id="statXP">
+                1.0x
+            </strong>
+
         </div>
 
+
         <div class="upgrade-stat">
+
             <span>SPEED</span>
-            <strong id="statSpeed">1.0x</strong>
+
+            <strong id="statSpeed">
+                1.0x
+            </strong>
+
+        </div>
+
+
+        <div class="upgrade-stat">
+
+            <span>COINS</span>
+
+            <strong id="statCoins">
+                1.0x
+            </strong>
+
         </div>
 
     </div>
+
+
+    <!-- =========================
+         ACHIEVEMENT INDEX
+    ========================== -->
 
     <div id="indexOverlay">
 
         <div id="indexPanel">
 
+
+            <!-- INDEX HEADER -->
+
             <div class="index-header">
 
                 <div>
-                    <h2>Achievement Index</h2>
+
+                    <h2>
+                        Achievement Index
+                    </h2>
 
                     <span id="indexStats">
                         0 / 0 Achievements Unlocked
                     </span>
+
                 </div>
 
-                <!-- TYLKO DODANY PRZYCISK REFRESH -->
+
                 <div class="index-header-buttons">
 
                     <button id="refreshIndex">
@@ -167,9 +283,14 @@
 
             </div>
 
+
+            <!-- SEARCH -->
+
             <div class="index-search-wrapper">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    ⌕
+                </span>
 
                 <input
                     type="text"
@@ -180,45 +301,101 @@
 
             </div>
 
+
+            <!-- ACHIEVEMENT LIST -->
+
             <div id="indexList"></div>
 
         </div>
 
     </div>
 
+
+    <!-- =========================
+         MAIN GAME
+    ========================== -->
+
     <main class="container">
 
-        <h1>MOJE RNG</h1>
+        <h1>
+            MOJE RNG
+        </h1>
+
+
+        <!-- LEVEL / XP -->
 
         <div class="stats">
 
             <div>
-                <span>LEVEL</span>
-                <strong id="level">1</strong>
+
+                <span>
+                    LEVEL
+                </span>
+
+                <strong id="level">
+                    1
+                </strong>
+
             </div>
+
 
             <div>
-                <span>XP</span>
-                <strong id="xp">0 / 100</strong>
+
+                <span>
+                    XP
+                </span>
+
+                <strong id="xp">
+                    0 / 100
+                </strong>
+
             </div>
 
         </div>
 
+
+        <!-- XP BAR -->
+
         <div class="xp-bar">
+
             <div id="xpFill"></div>
+
         </div>
+
+
+        <!-- RESULT -->
 
         <div id="result">
 
-            <span id="digit1" class="digit"></span>
-            <span id="digit2" class="digit"></span>
-            <span id="digit3" class="digit"></span>
+            <span
+                id="digit1"
+                class="digit"
+            ></span>
+
+            <span
+                id="digit2"
+                class="digit"
+            ></span>
+
+            <span
+                id="digit3"
+                class="digit"
+            ></span>
 
         </div>
 
+
+        <!-- RARITY -->
+
         <div id="rollRarity"></div>
 
+
+        <!-- ACHIEVEMENTS -->
+
         <div id="achievement"></div>
+
+
+        <!-- ROLL -->
 
         <button id="rollButton">
             ROLL
@@ -226,9 +403,19 @@
 
     </main>
 
+
+    <!-- =========================
+         VERSION
+    ========================== -->
+
     <div id="version">
         VERSION 1.2
     </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
     <script src="script.js"></script>
 
