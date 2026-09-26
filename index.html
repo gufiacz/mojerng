@@ -10,7 +10,6 @@
 
 <body>
 
-    <!-- CURRENCY -->
     <div id="currencyPanel">
 
         <button class="currency-button" id="coinsButton">
@@ -33,23 +32,19 @@
 
     </div>
 
-    <!-- CURRENCY GAIN -->
     <div id="currencyGain"></div>
 
-    <!-- RESET -->
     <button id="resetButton">RESET</button>
 
-    <!-- INDEX BUTTON -->
     <button id="indexButton">INDEX</button>
 
-    <!-- UPGRADE PANEL -->
     <aside id="upgradePanel">
 
         <div class="upgrade-header">
             <div class="upgrade-title">UPGRADES</div>
 
             <div class="upgrade-subtitle">
-                Improve your luck
+                Improve your stats
             </div>
         </div>
 
@@ -79,47 +74,10 @@
             <div class="upgrade-bottom">
 
                 <span id="xpUpgradeCost">
-                    7 COINS
+                    2 COINS
                 </span>
 
                 <button id="xpUpgradeButton">
-                    UPGRADE
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="upgrade-card">
-
-            <div class="upgrade-card-top">
-
-                <div class="upgrade-text">
-                    <div class="upgrade-name">
-                        Luck
-                    </div>
-
-                    <div class="upgrade-description">
-                        Increase your chance of rare numbers.
-                    </div>
-                </div>
-
-                <div
-                    class="upgrade-value"
-                    id="luckValue"
-                >
-                    1.0x
-                </div>
-
-            </div>
-
-            <div class="upgrade-bottom">
-
-                <span id="luckUpgradeCost">
-                    8 COINS
-                </span>
-
-                <button id="luckUpgradeButton">
                     UPGRADE
                 </button>
 
@@ -153,7 +111,7 @@
             <div class="upgrade-bottom">
 
                 <span id="speedUpgradeCost">
-                    7 COINS
+                    2 COINS
                 </span>
 
                 <button id="speedUpgradeButton">
@@ -166,17 +124,11 @@
 
     </aside>
 
-    <!-- UPGRADE STATS -->
     <div id="upgradeStats">
 
         <div class="upgrade-stat">
             <span>XP</span>
             <strong id="statXP">1.0x</strong>
-        </div>
-
-        <div class="upgrade-stat">
-            <span>LUCK</span>
-            <strong id="statLuck">1.0x</strong>
         </div>
 
         <div class="upgrade-stat">
@@ -186,7 +138,6 @@
 
     </div>
 
-    <!-- INDEX -->
     <div id="indexOverlay">
 
         <div id="indexPanel">
@@ -201,7 +152,18 @@
                     </span>
                 </div>
 
-                <button id="closeIndex">×</button>
+                <!-- TYLKO DODANY PRZYCISK REFRESH -->
+                <div class="index-header-buttons">
+
+                    <button id="refreshIndex">
+                        ↻
+                    </button>
+
+                    <button id="closeIndex">
+                        ×
+                    </button>
+
+                </div>
 
             </div>
 
@@ -224,7 +186,6 @@
 
     </div>
 
-    <!-- MAIN GAME -->
     <main class="container">
 
         <h1>MOJE RNG</h1>

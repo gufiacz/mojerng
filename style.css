@@ -1,602 +1,188 @@
-/* =========================================================
-   RESET / GLOBAL
-========================================================= */
-
 * {
     box-sizing: border-box;
-}
-
-html {
-    width: 100%;
-    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    width: 100%;
     min-height: 100vh;
-
     background:
         radial-gradient(
-            circle at center,
-            #191919 0%,
-            #0d0d0d 70%
+            circle at top,
+            #1a1a1a 0%,
+            #0d0d0d 45%,
+            #050505 100%
         );
-
-    color: white;
-
-    font-family: Arial, sans-serif;
-
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
-    overflow-y: auto;
 }
 
-
-/* =========================================================
-   MAIN
-========================================================= */
+/* =========================
+   MAIN CONTAINER
+========================= */
 
 .container {
-    width: min(500px, calc(100vw - 40px));
-
-    min-height: 100vh;
-
+    width: min(700px, 92%);
     margin: 0 auto;
-
-    padding:
-        clamp(110px, 12vh, 145px)
-        0
-        80px;
-
+    padding-top: 90px;
     text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-h1 {
-    width: 100%;
-
-    margin: 0 0 28px;
-
-    font-size: clamp(38px, 5vw, 54px);
-    line-height: 1;
-
+.container h1 {
+    font-size: 42px;
+    letter-spacing: 6px;
+    margin-bottom: 28px;
     font-weight: 900;
-
-    letter-spacing: clamp(2px, 0.5vw, 5px);
-
-    color: #fff;
-
-    text-shadow:
-        0 0 10px rgba(88, 101, 242, 0.25),
-        0 0 30px rgba(88, 101, 242, 0.12);
 }
 
-
-/* =========================================================
-   CURRENCY
-========================================================= */
-
-#currencyPanel {
-    position: fixed;
-
-    top: 20px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    z-index: 150;
-}
-
-.currency-button {
-    width: 125px;
-    height: 50px;
-
-    padding: 6px 10px;
-
-    background: #171717;
-
-    border: 1px solid #333;
-
-    border-radius: 9px;
-
-    color: white;
-
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    cursor: pointer;
-
-    transition:
-        border-color 0.2s ease,
-        background 0.2s ease,
-        transform 0.2s ease,
-        filter 0.25s ease,
-        opacity 0.25s ease;
-}
-
-.currency-button:hover {
-    background: #202020;
-
-    border-color: #555;
-
-    transform: translateY(-2px);
-}
-
-.currency-button.active {
-    border-color: #5865f2;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202044,
-            #171717
-        );
-
-    box-shadow:
-        0 0 15px rgba(88, 101, 242, 0.15);
-}
-
-.currency-button.blurred {
-    filter: blur(5px);
-
-    opacity: 0.35;
-
-    pointer-events: none;
-
-    transform: scale(0.96);
-}
-
-.currency-icon {
-    flex-shrink: 0;
-
-    font-size: 20px;
-}
-
-.currency-info {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    line-height: 1;
-}
-
-.currency-name {
-    color: #777;
-
-    font-size: 8px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-    white-space: nowrap;
-}
-
-.currency-info strong {
-    margin-top: 4px;
-
-    color: #fff;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   CURRENCY GAIN
-========================================================= */
-
-#currencyGain {
-    position: fixed;
-
-    top: 78px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    min-height: 24px;
-
-    pointer-events: none;
-
-    z-index: 200;
-}
-
-.currency-gain-animation {
-    color: #ffd84d;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    text-shadow:
-        0 0 10px rgba(255, 216, 77, 0.5);
-
-    animation:
-        currencyGain 1s ease-out forwards;
-}
-
-.token-gain-animation {
-    color: #c855ff;
-
-    text-shadow:
-        0 0 12px rgba(200, 85, 255, 0.6);
-}
-
-@keyframes currencyGain {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translateY(8px)
-            scale(0.8);
-    }
-
-    20% {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-
-    100% {
-        opacity: 0;
-
-        transform:
-            translateY(-25px)
-            scale(1.05);
-    }
-}
-
-
-/* =========================================================
+/* =========================
    STATS
-========================================================= */
+========================= */
 
 .stats {
-    width: 100%;
-
     display: flex;
     justify-content: center;
-
-    gap: clamp(45px, 10vw, 70px);
-
-    margin-bottom: 16px;
+    gap: 80px;
+    margin-bottom: 15px;
 }
 
-.stats div {
-    min-width: 70px;
-
+.stats > div {
     display: flex;
     flex-direction: column;
-
     gap: 5px;
 }
 
 .stats span {
     color: #777;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
+    font-size: 11px;
     letter-spacing: 2px;
+    font-weight: bold;
 }
 
 .stats strong {
-    font-size: 25px;
+    font-size: 21px;
 }
 
-
-/* =========================================================
+/* =========================
    XP BAR
-========================================================= */
+========================= */
 
 .xp-bar {
-    width: min(320px, 80vw);
-    height: 10px;
-
-    background: #191919;
-
-    border: 1px solid #333;
-
-    border-radius: 20px;
-
-    margin: 0 auto 30px;
-
+    width: 100%;
+    height: 8px;
+    background: #1c1c1c;
+    border: 1px solid #292929;
+    border-radius: 10px;
     overflow: hidden;
-
-    box-shadow:
-        inset 0 0 8px rgba(0, 0, 0, 0.6);
+    margin-bottom: 45px;
 }
 
 #xpFill {
-    width: 0%;
     height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #5865f2,
-            #7c83ff
-        );
-
-    transition:
-        width 0.5s ease;
+    width: 0%;
+    background: linear-gradient(
+        90deg,
+        #4da6ff,
+        #7bc4ff
+    );
+    border-radius: inherit;
+    transition: width 0.25s ease;
 }
 
-
-/* =========================================================
+/* =========================
    RESULT
-========================================================= */
+========================= */
 
 #result {
-    position: relative;
-
-    width: min(100%, 500px);
-    min-height: 175px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #222,
-            #171717
-        );
-
-    border: 2px solid #353535;
-
-    border-radius: 18px;
-
-    padding: clamp(30px, 7vw, 50px);
-
-    margin: 0 0 20px;
-
-    font-size: clamp(48px, 8vw, 60px);
+    min-height: 125px;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
 
-    gap: 5px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.35),
-        inset 0 0 25px rgba(255, 255, 255, 0.015);
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
 .digit {
-    display: inline-block;
+    width: 85px;
+    height: 105px;
 
-    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    background: linear-gradient(
+        145deg,
+        #202020,
+        #101010
+    );
+
+    border: 1px solid #303030;
+    border-radius: 14px;
+
+    font-size: 65px;
+    font-weight: 900;
+
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,0.025),
+        0 10px 30px rgba(0,0,0,0.35);
+
+    /* Ukryte zanim animacja wystartuje */
     opacity: 0;
-
-    transform:
-        translateY(-250px);
+    transform: translateY(-100px);
 }
 
+/* Animacja cyfry */
 .digit.drop {
     animation:
-        drop var(--animation-duration, 1s)
-        cubic-bezier(0.2, 0.8, 0.3, 1)
+        digitDrop
+        var(--animation-duration, 1000ms)
+        cubic-bezier(.2,.8,.25,1)
         forwards;
 }
 
-@keyframes drop {
+@keyframes digitDrop {
 
     0% {
+        transform: translateY(-100px);
         opacity: 0;
+    }
 
-        transform:
-            translateY(-250px)
-            scale(0.7);
+    45% {
+        transform: translateY(10px);
+        opacity: 1;
     }
 
     65% {
+        transform: translateY(-5px);
         opacity: 1;
-
-        transform:
-            translateY(20px)
-            scale(1.15);
     }
 
-    85% {
-        transform:
-            translateY(-5px)
-            scale(1.05);
+    82% {
+        transform: translateY(2px);
+        opacity: 1;
     }
 
     100% {
+        transform: translateY(0);
         opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
     }
 }
 
-
-/* =========================================================
-   GENERAL BUTTONS
-========================================================= */
-
-button {
-    background: #5865f2;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 10px;
-
-    padding: 15px 50px;
-
-    font-size: 20px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
-}
-
-button:hover {
-    background: #4752c4;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 7px 20px rgba(88, 101, 242, 0.2);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-button:disabled {
-    opacity: 0.5;
-
-    cursor: default;
-
-    transform: none;
-
-    box-shadow: none;
-}
-
-
-/* =========================================================
-   ROLL BUTTON
-========================================================= */
-
-#rollButton {
-    min-width: 220px;
-
-    margin-top: 0;
-}
-
-
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-#achievement {
-    width: 100%;
-
-    min-height: 0;
-
-    margin: 0 0 20px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.achievement-notification {
-    width: 100%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202020,
-            #171717
-        );
-
-    border: 1px solid #3b3b3b;
-
-    border-radius: 12px;
-
-    padding: 15px 20px;
-
-    animation:
-        achievementIn 0.5s ease-out forwards;
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.25);
-}
-
-.achievement-title {
-    font-size: 21px;
-
-    font-weight: bold;
-}
-
-.achievement-rarity {
-    font-size: 13px;
-
-    margin-top: 4px;
-}
-
-.achievement-xp {
-    color: #7c83ff;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    margin-top: 6px;
-}
-
-@keyframes achievementIn {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(20px)
-            scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   ROLL RARITY
-========================================================= */
+/* =========================
+   RARITY
+========================= */
 
 #rollRarity {
-    width: 100%;
-
-    min-height: 22px;
-
-    margin-bottom: 5px;
-
+    min-height: 25px;
     font-size: 13px;
-
-    font-weight: bold;
-
-    letter-spacing: 2px;
-
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
     opacity: 0;
-
-    transition:
-        opacity 0.3s ease;
+    transition: opacity 0.2s ease;
 }
 
 #rollRarity.visible {
@@ -604,7 +190,7 @@ button:disabled {
 }
 
 .rarity-normal {
-    color: #999;
+    color: #aaa;
 }
 
 .rarity-rare {
@@ -612,631 +198,203 @@ button:disabled {
 }
 
 .rarity-ultra {
-    background:
-        linear-gradient(
-            90deg,
-            #ff3b3b,
-            #ff9d00,
-            #ffe600,
-            #38ff70,
-            #38d9ff,
-            #5865f2,
-            #c855ff
-        );
-
-    background-size: 400% 100%;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-
-    animation:
-        rainbow 3s linear infinite;
+    color: #ff9d00;
+    text-shadow:
+        0 0 8px rgba(255,157,0,0.45);
 }
 
+/* =========================
+   ACHIEVEMENTS
+========================= */
 
-/* =========================================================
-   UPGRADE PANEL
-========================================================= */
+#achievement {
+    width: 100%;
+    min-height: 0;
 
-#upgradePanel {
-    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    left: 20px;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.achievement-notification {
+    position: relative;
+
+    width: min(430px, 90%);
+
+    padding: 14px 18px;
+
+    background: linear-gradient(
+        145deg,
+        #1c1c1c,
+        #101010
+    );
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    text-align: left;
+
+    animation:
+        achievementAppear
+        0.45s
+        ease
+        forwards;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.3);
+}
+
+@keyframes achievementAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.achievement-notification.new-achievement {
+    border-color: #4da6ff;
+
+    box-shadow:
+        0 0 15px rgba(77,166,255,0.12),
+        0 8px 25px rgba(0,0,0,0.3);
+}
+
+.achievement-title {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.achievement-title.exclusive {
+    background: linear-gradient(
+        90deg,
+        #ff3b3b,
+        #ff9d00,
+        #ffe600,
+        #55d66b,
+        #4da6ff,
+        #a855f7,
+        #ff3b3b
+    );
+
+    background-size: 300% auto;
+
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation:
+        rainbowText
+        3s
+        linear
+        infinite;
+}
+
+.achievement-rarity {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+}
+
+.achievement-rarity.exclusive {
+    color: #fff;
+
+    animation:
+        rainbowText
+        3s
+        linear
+        infinite;
+}
+
+.achievement-xp {
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.achievement-new-label {
+    position: absolute;
+
+    right: 15px;
     top: 50%;
 
     transform: translateY(-50%);
 
-    width: min(275px, calc(100vw - 40px));
-
-    z-index: 100;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.upgrade-header {
-    padding: 4px 8px 10px;
-}
-
-.upgrade-title {
-    font-size: 18px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-}
-
-.upgrade-subtitle {
-    margin-top: 4px;
-
-    color: #666;
+    color: #4da6ff;
 
     font-size: 11px;
-
+    font-weight: 900;
     letter-spacing: 1px;
 }
 
-.upgrade-card {
-    width: 100%;
+/* =========================
+   ROLL BUTTON
+========================= */
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(30, 30, 30, 0.98),
-            rgba(20, 20, 20, 0.98)
-        );
+#rollButton {
+    width: 230px;
+    height: 65px;
 
-    border: 1px solid #303030;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
 
-    border-radius: 13px;
+    background: linear-gradient(
+        145deg,
+        #252525,
+        #151515
+    );
 
-    padding: 13px;
+    color: #fff;
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 4px;
+
+    cursor: pointer;
 
     transition:
-        border-color 0.2s ease,
-        transform 0.2s ease;
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
-.upgrade-card:hover {
-    border-color: #444;
+#rollButton:hover:not(:disabled) {
+    background: linear-gradient(
+        145deg,
+        #303030,
+        #181818
+    );
 
-    transform: translateX(2px);
+    border-color: #555;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.4);
 }
 
-.upgrade-card-top {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: flex-start;
-
-    gap: 10px;
+#rollButton:active:not(:disabled) {
+    transform: translateY(1px);
 }
 
-.upgrade-text {
-    min-width: 0;
-    flex: 1;
-}
-
-.upgrade-name {
-    font-size: 14px;
-
-    font-weight: bold;
-}
-
-.upgrade-description {
-    margin-top: 5px;
-
-    color: #777;
-
-    font-size: 10px;
-
-    line-height: 1.35;
-}
-
-.upgrade-value {
-    color: #7c83ff;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-
-    flex-shrink: 0;
-}
-
-.upgrade-bottom {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    margin-top: 12px;
-
-    padding-top: 10px;
-
-    border-top: 1px solid #292929;
-}
-
-.upgrade-bottom span {
-    color: #999;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-}
-
-.upgrade-bottom button {
-    flex-shrink: 0;
-
-    padding: 7px 11px;
-
-    border-radius: 7px;
-
-    font-size: 10px;
-}
-
-.upgrade-bottom button.cant-buy {
-    background: #292929;
-
-    color: #666;
-
+#rollButton:disabled {
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
-.upgrade-bottom button.cant-buy:hover {
-    background: #292929;
-
-    transform: none;
-
-    box-shadow: none;
-}
-
-
-/* =========================================================
-   UPGRADE STATS
-========================================================= */
-
-#upgradeStats {
-    position: fixed;
-
-    top: 20px;
-    right: 105px;
-
-    z-index: 100;
-
-    display: flex;
-
-    gap: 8px;
-}
-
-.upgrade-stat {
-    min-width: 68px;
-
-    padding: 7px 10px;
-
-    background: #171717;
-
-    border: 1px solid #303030;
-
-    border-radius: 8px;
-
-    text-align: center;
-}
-
-.upgrade-stat span {
-    display: block;
-
-    color: #666;
-
-    font-size: 8px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-}
-
-.upgrade-stat strong {
-    display: block;
-
-    margin-top: 2px;
-
-    color: #7c83ff;
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   INDEX BUTTON
-========================================================= */
-
-#indexButton {
-    position: fixed;
-
-    top: 20px;
-    right: 20px;
-
-    z-index: 100;
-
-    padding: 10px 18px;
-
-    background: #1c1c1c;
-
-    border: 1px solid #444;
-
-    border-radius: 8px;
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-#indexButton:hover {
-    background: #292929;
-
-    border-color: #5865f2;
-}
-
-
-/* =========================================================
-   INDEX OVERLAY
-========================================================= */
-
-#indexOverlay {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 1000;
-
-    background:
-        rgba(0, 0, 0, 0.8);
-
-    backdrop-filter: blur(5px);
-
-    display: none;
-
-    justify-content: center;
-    align-items: center;
-
-    padding: 30px;
-}
-
-#indexOverlay.open {
-    display: flex;
-}
-
-#indexPanel {
-    width: min(680px, 100%);
-
-    max-height: 85vh;
-
-    background: #151515;
-
-    border: 1px solid #3a3a3a;
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 25px 80px rgba(0, 0, 0, 0.7);
-
-    display: flex;
-
-    flex-direction: column;
-
-    overflow: hidden;
-}
-
-.index-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 20px;
-
-    padding: 22px 25px;
-
-    border-bottom: 1px solid #292929;
-}
-
-.index-header h2 {
-    margin: 0;
-
-    font-size: 26px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-}
-
-.index-header span {
-    display: block;
-
-    margin-top: 6px;
-
-    color: #777;
-
-    font-size: 12px;
-}
-
-#closeIndex {
-    flex-shrink: 0;
-
-    padding: 0;
-
-    width: 36px;
-    height: 36px;
-
-    background: transparent;
-
-    color: #777;
-
-    border: none;
-
-    font-size: 30px;
-
-    line-height: 30px;
-}
-
-#closeIndex:hover {
-    color: white;
-
-    background: #242424;
-}
-
-.index-search-wrapper {
-    position: relative;
-
-    margin: 15px 15px 5px;
-}
-
-.search-icon {
-    position: absolute;
-
-    left: 14px;
-    top: 50%;
-
-    transform: translateY(-52%);
-
-    color: #666;
-
-    font-size: 21px;
-
-    pointer-events: none;
-}
-
-#achievementSearch {
-    width: 100%;
-
-    padding: 12px 15px 12px 42px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1c1c1c,
-            #181818
-        );
-
-    border: 1px solid #333;
-
-    border-radius: 10px;
-
-    outline: none;
-
-    color: white;
-
-    font-size: 13px;
-}
-
-#achievementSearch::placeholder {
-    color: #666;
-}
-
-#achievementSearch:focus {
-    border-color: #5865f2;
-
-    box-shadow:
-        0 0 0 3px rgba(88, 101, 242, 0.1);
-}
-
-#indexList {
-    overflow-y: auto;
-
-    padding: 15px;
-}
-
-.index-achievement {
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    background: #1c1c1c;
-
-    border: 1px solid #303030;
-
-    border-radius: 12px;
-
-    padding: 15px 18px;
-
-    margin-bottom: 10px;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.index-achievement:hover {
-    background: #222;
-
-    border-color: #505050;
-
-    transform: translateX(2px);
-}
-
-.index-number {
-    width: 30px;
-
-    color: #555;
-
-    font-size: 13px;
-
-    text-align: center;
-
-    flex-shrink: 0;
-}
-
-.index-info {
-    flex: 1;
-
-    min-width: 0;
-}
-
-.index-name {
-    font-size: 17px;
-
-    font-weight: bold;
-
-    margin-bottom: 5px;
-}
-
-.index-description {
-    color: #999;
-
-    font-size: 13px;
-
-    line-height: 1.4;
-}
-
-.index-rarity {
-    margin-top: 7px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-}
-
-.index-xp {
-    color: #7c83ff;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-
-    flex-shrink: 0;
-}
-
-.index-achievement.locked .index-info {
-    filter: blur(6px);
-
-    user-select: none;
-}
-
-.index-achievement.locked .index-xp {
-    filter: blur(5px);
-}
-
-.index-achievement.locked .index-rarity {
-    filter: blur(5px);
-}
-
-.index-locked {
-    position: absolute;
-
-    right: 18px;
-
-    color: #555;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-}
-
-.index-no-results {
-    padding: 40px;
-
-    color: #666;
-
-    text-align: center;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   EXCLUSIVE / RAINBOW
-========================================================= */
-
-.exclusive {
-    background:
-        linear-gradient(
-            90deg,
-            #ff3b3b,
-            #ff9d00,
-            #ffe600,
-            #38ff70,
-            #38d9ff,
-            #5865f2,
-            #c855ff,
-            #ff3b3b
-        );
-
-    background-size: 400% 100%;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-
-    animation:
-        rainbow 3s linear infinite;
-}
-
-.exclusive-border {
-    border-color: #ff9d00;
-}
-
-@keyframes rainbow {
-
-    0% {
-        background-position: 0% 50%;
-    }
-
-    100% {
-        background-position: 400% 50%;
-    }
-}
-
-
-/* =========================================================
+/* =========================
    RESET BUTTON
-========================================================= */
+========================= */
 
 #resetButton {
     position: fixed;
@@ -1244,355 +402,1012 @@ button:disabled {
     top: 20px;
     left: 20px;
 
-    z-index: 100;
+    padding: 9px 15px;
 
-    padding: 9px 16px;
-
-    background: #171717;
-
-    border: 1px solid #333;
-
+    border: 1px solid #303030;
     border-radius: 8px;
 
+    background: #151515;
     color: #777;
 
-    font-size: 11px;
-
-    font-weight: bold;
-
+    font-size: 10px;
+    font-weight: 900;
     letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease;
 }
 
 #resetButton:hover {
-    background: #241818;
-
-    border-color: #8b3333;
-
-    color: #ff7777;
+    color: #ff5555;
+    border-color: #663333;
+    background: #1c1111;
 }
 
+/* =========================
+   INDEX BUTTON
+========================= */
 
-/* =========================================================
-   VERSION
-========================================================= */
-
-#version {
+#indexButton {
     position: fixed;
 
-    bottom: 12px;
-    left: 15px;
+    top: 20px;
+    right: 20px;
 
-    color: #555;
+    padding: 10px 17px;
+
+    border: 1px solid #303030;
+    border-radius: 8px;
+
+    background: #151515;
+    color: #aaa;
 
     font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
 
-    font-weight: bold;
+    cursor: pointer;
 
-    letter-spacing: 1px;
-
-    z-index: 100;
+    transition:
+        color 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease,
+        transform 0.15s ease;
 }
 
+#indexButton:hover {
+    color: #fff;
+    border-color: #555;
+    background: #202020;
+    transform: translateY(-1px);
+}
 
-/* =========================================================
-   SCROLLBAR
-========================================================= */
+/* =========================
+   CURRENCY PANEL
+========================= */
+
+#currencyPanel {
+    position: fixed;
+
+    top: 65px;
+    left: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    z-index: 10;
+}
+
+.currency-button {
+    min-width: 145px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 12px;
+
+    background: #131313;
+
+    border: 1px solid #292929;
+    border-radius: 9px;
+
+    color: #fff;
+
+    cursor: pointer;
+    text-align: left;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        opacity 0.15s ease,
+        transform 0.15s ease;
+}
+
+.currency-button:hover {
+    background: #1c1c1c;
+    border-color: #414141;
+}
+
+.currency-button.active {
+    border-color: #555;
+    background: #1c1c1c;
+}
+
+.currency-button.blurred {
+    opacity: 0.4;
+}
+
+.currency-icon {
+    font-size: 19px;
+}
+
+.currency-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.currency-name {
+    color: #777;
+
+    font-size: 8px;
+    letter-spacing: 1.3px;
+    font-weight: 900;
+}
+
+.currency-info strong {
+    font-size: 13px;
+}
+
+/* =========================
+   CURRENCY GAIN
+========================= */
+
+#currencyGain {
+    position: fixed;
+
+    top: 155px;
+    left: 20px;
+
+    z-index: 20;
+
+    pointer-events: none;
+}
+
+.currency-gain-animation {
+    color: #ffd84d;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    animation:
+        currencyGain
+        1s
+        ease
+        forwards;
+}
+
+.token-gain-animation {
+    color: #a855f7;
+}
+
+@keyframes currencyGain {
+
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+}
+
+/* =========================
+   UPGRADE PANEL
+========================= */
+
+#upgradePanel {
+    position: fixed;
+
+    right: 20px;
+    top: 65px;
+
+    width: 265px;
+
+    z-index: 10;
+}
+
+.upgrade-header {
+    margin-bottom: 12px;
+}
+
+.upgrade-title {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.upgrade-subtitle {
+    margin-top: 3px;
+
+    color: #666;
+
+    font-size: 9px;
+    letter-spacing: 0.8px;
+}
+
+.upgrade-card {
+    padding: 14px;
+    margin-bottom: 9px;
+
+    background: linear-gradient(
+        145deg,
+        #191919,
+        #101010
+    );
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+}
+
+.upgrade-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+.upgrade-text {
+    min-width: 0;
+}
+
+.upgrade-name {
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.upgrade-description {
+    color: #666;
+
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+.upgrade-value {
+    color: #4da6ff;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    white-space: nowrap;
+}
+
+.upgrade-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #777;
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.upgrade-bottom button {
+    padding: 7px 10px;
+
+    background: #202020;
+    color: #fff;
+
+    border: 1px solid #353535;
+    border-radius: 6px;
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.upgrade-bottom button:hover:not(:disabled) {
+    background: #292929;
+    border-color: #555;
+}
+
+.upgrade-bottom button:disabled,
+.upgrade-bottom button.cant-buy {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* =========================
+   UPGRADE STATS
+========================= */
+
+#upgradeStats {
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    display: flex;
+    gap: 8px;
+
+    z-index: 10;
+}
+
+.upgrade-stat {
+    min-width: 65px;
+
+    padding: 7px 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+
+    background: #121212;
+
+    border: 1px solid #292929;
+    border-radius: 7px;
+
+    text-align: center;
+}
+
+.upgrade-stat span {
+    color: #555;
+
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.upgrade-stat strong {
+    color: #aaa;
+    font-size: 10px;
+}
+
+/* =========================
+   INDEX OVERLAY
+========================= */
+
+#indexOverlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,0.78);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+}
+
+#indexOverlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================
+   INDEX PANEL
+========================= */
+
+#indexPanel {
+    width: min(680px, 100%);
+    max-height: 88vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #0d0d0d
+        );
+
+    border: 1px solid #303030;
+    border-radius: 16px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.7);
+
+    overflow: hidden;
+
+    transform: translateY(15px) scale(0.98);
+
+    transition:
+        transform 0.25s ease;
+}
+
+#indexOverlay.open #indexPanel {
+    transform: translateY(0) scale(1);
+}
+
+/* =========================
+   INDEX HEADER
+========================= */
+
+.index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #242424;
+}
+
+.index-header h2 {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+#indexStats {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #666;
+
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+#closeIndex {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #303030;
+    border-radius: 8px;
+
+    background: #151515;
+    color: #777;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+#closeIndex:hover {
+    color: #fff;
+    background: #222;
+    border-color: #555;
+}
+
+/* =========================
+   INDEX SEARCH
+========================= */
+
+.index-search-wrapper {
+    position: relative;
+
+    padding: 14px 18px;
+
+    border-bottom: 1px solid #222;
+}
+
+.search-icon {
+    position: absolute;
+
+    left: 30px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #666;
+
+    font-size: 18px;
+
+    pointer-events: none;
+}
+
+#achievementSearch {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 15px 0 40px;
+
+    background: #111;
+
+    border: 1px solid #292929;
+    border-radius: 9px;
+
+    color: #fff;
+
+    outline: none;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+}
+
+#achievementSearch::placeholder {
+    color: #555;
+}
+
+#achievementSearch:focus {
+    border-color: #4a4a4a;
+    background: #151515;
+}
+
+/* =========================
+   REFRESH INDEX
+========================= */
+
+.index-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 0 18px 12px;
+}
+
+#refreshIndex {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    background: #151515;
+
+    border: 1px solid #303030;
+    border-radius: 7px;
+
+    color: #888;
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
+}
+
+#refreshIndex:hover {
+    color: #fff;
+
+    background: #202020;
+
+    border-color: #505050;
+
+    transform: translateY(-1px);
+}
+
+#refreshIndex:active {
+    transform: translateY(0);
+}
+
+#refreshIndex.refreshing {
+    color: #4da6ff;
+}
+
+/* =========================
+   INDEX LIST
+========================= */
+
+#indexList {
+    padding: 10px 18px 18px;
+
+    overflow-y: auto;
+
+    min-height: 0;
+}
 
 #indexList::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
 }
 
 #indexList::-webkit-scrollbar-track {
-    background: #111;
+    background: #0c0c0c;
 }
 
 #indexList::-webkit-scrollbar-thumb {
-    background: #3c3c3c;
-
+    background: #303030;
     border-radius: 10px;
 }
 
 #indexList::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #454545;
 }
 
+/* =========================
+   INDEX ACHIEVEMENT
+========================= */
 
-/* =========================================================
-   TABLET / SMALL DESKTOP
-========================================================= */
+.index-achievement {
+    position: relative;
 
-@media (max-width: 1150px) {
+    display: flex;
+    align-items: center;
 
-    #upgradePanel {
-        width: 230px;
+    gap: 13px;
+
+    min-height: 72px;
+
+    margin-bottom: 8px;
+
+    padding: 12px 14px;
+
+    background: #141414;
+
+    border: 1px solid #252525;
+    border-radius: 9px;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.index-achievement:hover {
+    background: #191919;
+    border-color: #353535;
+}
+
+.index-achievement.locked {
+    opacity: 0.48;
+}
+
+.index-number {
+    width: 27px;
+    min-width: 27px;
+
+    height: 27px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #1f1f1f;
+
+    border: 1px solid #303030;
+    border-radius: 6px;
+
+    color: #666;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.index-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.index-name {
+    margin-bottom: 3px;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.index-name.exclusive {
+    background: linear-gradient(
+        90deg,
+        #ff3b3b,
+        #ff9d00,
+        #ffe600,
+        #55d66b,
+        #4da6ff,
+        #a855f7,
+        #ff3b3b
+    );
+
+    background-size: 300% auto;
+
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation:
+        rainbowText
+        3s
+        linear
+        infinite;
+}
+
+.index-description {
+    color: #666;
+
+    font-size: 9px;
+    line-height: 1.35;
+
+    max-width: 440px;
+}
+
+.index-rarity {
+    margin-top: 5px;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.index-rarity.exclusive {
+    color: #fff;
+
+    animation:
+        rainbowText
+        3s
+        linear
+        infinite;
+}
+
+.index-xp {
+    min-width: 65px;
+
+    color: #777;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+.index-locked {
+    position: absolute;
+
+    right: 14px;
+    bottom: 8px;
+
+    color: #444;
+
+    font-size: 7px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.index-achievement.exclusive-border {
+    border-color: rgba(168,85,247,0.35);
+
+    box-shadow:
+        inset 0 0 15px rgba(168,85,247,0.025);
+}
+
+/* =========================
+   NO SEARCH RESULTS
+========================= */
+
+.index-no-results {
+    padding: 40px 20px;
+
+    color: #555;
+
+    text-align: center;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* =========================
+   RAINBOW
+========================= */
+
+@keyframes rainbowText {
+
+    0% {
+        background-position: 0% 50%;
     }
 
-    .upgrade-description {
-        font-size: 9px;
-    }
-
-    #upgradeStats {
-        right: 95px;
+    100% {
+        background-position: 300% 50%;
     }
 }
 
+/* =========================
+   VERSION
+========================= */
 
-/* =========================================================
-   TABLET
-========================================================= */
+#version {
+    position: fixed;
+
+    bottom: 20px;
+    left: 20px;
+
+    color: #333;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 900px) {
 
-    body {
-        overflow-y: auto;
-    }
-
     #upgradePanel {
-        position: relative;
+        position: static;
 
-        left: auto;
-        top: auto;
+        width: min(600px, 92%);
 
-        transform: none;
-
-        width: min(500px, calc(100vw - 30px));
-
-        margin:
-            20px auto
-            80px;
-
-        order: 10;
-    }
-
-    .container {
-        width: min(500px, calc(100vw - 30px));
-
-        min-height: auto;
-
-        padding-top: 105px;
-        padding-bottom: 30px;
+        margin: 25px auto 0;
     }
 
     #upgradeStats {
-        top: 78px;
-        right: 15px;
+        position: static;
+
+        width: min(600px, 92%);
+
+        margin: 15px auto;
+
+        justify-content: center;
     }
 
-    #indexButton {
-        display: none;
-    }
-
-    #resetButton {
-        top: 20px;
-        left: 15px;
-    }
-
-    #currencyPanel {
-        top: 15px;
+    .container {
+        padding-top: 85px;
     }
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media (max-width: 600px) {
 
     .container {
-        width: calc(100vw - 30px);
-
-        padding-top: 105px;
+        padding-top: 80px;
     }
 
-    h1 {
-        font-size: clamp(34px, 10vw, 42px);
-
-        letter-spacing: 2px;
-
-        margin-bottom: 24px;
+    .container h1 {
+        font-size: 30px;
+        letter-spacing: 4px;
     }
 
     .stats {
-        gap: 40px;
+        gap: 50px;
     }
 
-    .stats strong {
-        font-size: 22px;
-    }
+    .digit {
+        width: 65px;
+        height: 85px;
 
-    .xp-bar {
-        width: min(320px, 85vw);
-
-        margin-bottom: 25px;
+        font-size: 50px;
     }
 
     #result {
-        width: 100%;
-
-        min-height: 150px;
-
-        padding: 30px 15px;
-
-        border-radius: 15px;
-
-        font-size: clamp(42px, 14vw, 56px);
+        min-height: 100px;
     }
 
     #rollButton {
-        width: min(220px, 80vw);
-
-        padding: 14px 25px;
+        width: 200px;
+        height: 58px;
     }
 
     #currencyPanel {
-        width: calc(100vw - 30px);
-
-        justify-content: center;
-
-        gap: 6px;
+        top: 60px;
+        left: 10px;
     }
 
     .currency-button {
-        width: calc(50vw - 18px);
-
-        max-width: 125px;
+        min-width: 125px;
+        padding: 7px 9px;
     }
 
-    #upgradeStats {
-        top: 78px;
-        right: 15px;
-
-        gap: 4px;
-    }
-
-    .upgrade-stat {
-        min-width: 58px;
-
-        padding: 6px;
-    }
-
-    .upgrade-stat span {
-        font-size: 7px;
-    }
-
-    .upgrade-stat strong {
-        font-size: 11px;
-    }
-
-    #upgradePanel {
-        width: calc(100vw - 30px);
-
-        margin-top: 25px;
-    }
-
-    .upgrade-card {
-        padding: 12px;
-    }
-
-    .upgrade-description {
-        font-size: 10px;
-    }
-
-    #indexOverlay {
-        padding: 12px;
-    }
-
-    #indexPanel {
-        width: 100%;
-
-        max-height: 92vh;
-
-        border-radius: 14px;
-    }
-
-    .index-header {
-        padding: 18px;
-
-        gap: 10px;
-    }
-
-    .index-header h2 {
-        font-size: 21px;
-    }
-
-    .index-achievement {
-        padding: 13px;
-
-        gap: 9px;
-    }
-
-    .index-number {
-        width: 20px;
-    }
-
-    .index-name {
-        font-size: 15px;
-    }
-
-    .index-description {
-        font-size: 12px;
-    }
-
-    .index-xp {
-        font-size: 12px;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 380px) {
-
-    .container {
-        width: calc(100vw - 20px);
-    }
-
-    h1 {
-        font-size: 31px;
-
-        letter-spacing: 1px;
-    }
-
-    .stats {
-        gap: 25px;
-    }
-
-    .currency-button {
-        height: 46px;
-
-        padding: 5px 7px;
-    }
-
-    .currency-icon {
-        font-size: 17px;
-    }
-
-    .currency-name {
-        font-size: 7px;
-    }
-
-    .currency-info strong {
-        font-size: 12px;
-    }
-
-    #upgradeStats {
+    #indexButton {
+        top: 15px;
         right: 10px;
     }
 
-    .upgrade-stat {
-        min-width: 52px;
+    #resetButton {
+        top: 15px;
+        left: 10px;
     }
 
-    #result {
-        min-height: 135px;
-
-        padding: 25px 10px;
+    #upgradePanel {
+        width: 92%;
     }
 
-    #rollButton {
-        width: 190px;
+    #indexOverlay {
+        padding: 10px;
+    }
+
+    #indexPanel {
+        max-height: 94vh;
+        border-radius: 12px;
+    }
+
+    .index-header {
+        padding: 15px;
+    }
+
+    .index-search-wrapper {
+        padding: 10px 12px;
+    }
+
+    .index-actions {
+        padding: 0 12px 10px;
+    }
+
+    #indexList {
+        padding: 8px 12px 12px;
+    }
+
+    .index-achievement {
+        gap: 9px;
+        padding: 10px;
+    }
+
+    .index-number {
+        width: 23px;
+        min-width: 23px;
+        height: 23px;
+    }
+
+    .index-xp {
+        min-width: auto;
+        font-size: 8px;
+    }
+
+    .index-description {
+        font-size: 8px;
+    }
+
+    .index-locked {
+        display: none;
+    }
+
+    #version {
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .digit {
+        width: 55px;
+        height: 75px;
+
+        font-size: 43px;
+    }
+
+    .stats {
+        gap: 35px;
+    }
+
+    .index-xp {
+        display: none;
     }
 }
